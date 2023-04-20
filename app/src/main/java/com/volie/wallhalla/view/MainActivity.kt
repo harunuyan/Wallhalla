@@ -1,7 +1,10 @@
 package com.volie.wallhalla.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,10 +16,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        mBinding.bottomNavView.setupWithNavController(navHostFragment.navController)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _mBinding = null
     }
+
 }
