@@ -20,4 +20,12 @@
         android:id="@+id/homeFragment"
         android:name="com.volie.wallhalla.view.fragment.HomeFragment"
         android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/collectionFragment"
+        android:name="com.volie.wallhalla.view.fragment.CollectionFragment"
+        android:label="CollectionFragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.volie.wallhalla.view.fragment.SettingFragment"
+        android:label="SettingFragment" />
 </navigation>
