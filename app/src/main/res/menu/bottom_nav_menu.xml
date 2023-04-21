@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/feedFragment"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_feed"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/collectionFragment"
+        android:icon="@drawable/ic_collection"
         tools:ignore="MenuTitle" />
 
     <item
         android:id="@+id/favoriteFragment"
         android:icon="@drawable/ic_fav"
+        tools:ignore="MenuTitle" />
+
+    <item
+        android:id="@+id/settingFragment"
+        android:icon="@drawable/ic_setting"
         tools:ignore="MenuTitle" />
 
 </menu>
