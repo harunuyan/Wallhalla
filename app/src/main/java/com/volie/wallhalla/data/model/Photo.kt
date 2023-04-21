@@ -1,5 +1,9 @@
 package com.volie.wallhalla.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Photo(
     val alt: String? = null,
     val avg_color: String? = null,
@@ -12,4 +16,4 @@ data class Photo(
     val src: Src? = null,
     val url: String? = null,
     val width: Int? = null
-)
+) : Parcelable
