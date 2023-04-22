@@ -18,7 +18,7 @@ class FeedAdapter : ListAdapter<Photo, FeedAdapter.FeedViewHolder>(
             val item = currentList[position]
             with(binding) {
                 Glide.with(root.context)
-                    .load(item.url)
+                    .load(item.src?.medium)
                     .into(ivFeedItem)
             }
         }
