@@ -1,6 +1,7 @@
 package com.volie.wallhalla.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -19,7 +20,18 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        mBinding.bottomNavView.setupWithNavController(navHostFragment.navController)
+
+        val navController = navHostFragment.navController
+
+        mBinding.bottomNavView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.photoDetailsFragment -> mBinding.bottomNavView.visibility = View.GONE
+                R.id.photographerFragment -> mBinding.bottomNavView.visibility = View.GONE
+                else -> mBinding.bottomNavView.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onDestroy() {
