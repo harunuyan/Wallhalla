@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Wallhalla</string>
+    <string name="internet_connection_not_available">Internet connection not available...</string>
 </resources>

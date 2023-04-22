@@ -34,9 +34,8 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupRecyclerView()
-
+        setupPullToRefresh()
         mViewModel.getWallpapers()
         observeLiveData()
     }
@@ -45,18 +44,33 @@ class FeedFragment : Fragment() {
         mViewModel.wallpapers.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
+                    with(mBinding) {
+                        pbFeed.visibility = View.GONE
+                        rvFeed.visibility = View.VISIBLE
+                        tvNoInternet.visibility = View.GONE
+                    }
                     it.data?.let { data ->
                         mAdapter.submitList(data.photos)
                     }
                 }
 
                 Status.ERROR -> {
+                    with(mBinding) {
+                        pbFeed.visibility = View.GONE
+                        rvFeed.visibility = View.GONE
+                        tvNoInternet.visibility = View.VISIBLE
+                    }
                     it.message?.let { message ->
                         Log.e("FeedFragment", "An error occured: $message")
                     }
                 }
 
                 Status.LOADING -> {
+                    with(mBinding) {
+                        pbFeed.visibility = View.VISIBLE
+                        rvFeed.visibility = View.GONE
+                        tvNoInternet.visibility = View.GONE
+                    }
                     Log.d("FeedFragment", "Loading...")
                 }
             }
@@ -66,6 +80,13 @@ class FeedFragment : Fragment() {
     private fun setupRecyclerView() {
         mBinding.rvFeed.adapter = mAdapter
         mBinding.rvFeed.layoutManager = GridLayoutManager(requireContext(), 2)
+    }
+
+    private fun setupPullToRefresh() {
+        mBinding.srlFeed.setOnRefreshListener {
+            mViewModel.getWallpapers()
+            mBinding.srlFeed.isRefreshing = false
+        }
     }
 
     override fun onDestroy() {
