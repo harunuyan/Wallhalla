@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_photo_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_back_details"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="start"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_back" />
+
+    <ImageView
+        android:id="@+id/iv_info_details"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_info" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_photo_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_margin="16dp"
+        android:background="@drawable/info_background"
+        android:backgroundTint="@color/dark_gray"
+        android:padding="12dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_photographer_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/person"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/MyShapeAppearanceOverlay" />
+
+        <TextView
+            android:id="@+id/tv_photographer_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="10dp"
+            android:text="Xavier von Erlach"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tv_photographer_url"
+            app:layout_constraintEnd_toStartOf="@id/iv_fav_details"
+            app:layout_constraintStart_toEndOf="@id/iv_photographer_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_photographer_profile" />
+
+        <TextView
+            android:id="@+id/tv_photographer_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="2dp"
+            android:text="Pexels.com"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/iv_photographer_profile"
+            app:layout_constraintEnd_toStartOf="@id/iv_fav_details"
+            app:layout_constraintStart_toEndOf="@id/iv_photographer_profile"
+            app:layout_constraintTop_toBottomOf="@id/tv_photographer_name" />
+
+        <ImageView
+            android:id="@+id/iv_fav_details"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_fav"
+            app:layout_constraintBottom_toBottomOf="@id/iv_photographer_profile"
+            app:layout_constraintEnd_toStartOf="@id/iv_set_wallpaper"
+            app:layout_constraintTop_toTopOf="@id/iv_photographer_profile" />
+
+        <ImageView
+            android:id="@+id/iv_set_wallpaper"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:src="@drawable/ic_set"
+            app:layout_constraintBottom_toBottomOf="@id/iv_photographer_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_photographer_profile" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
