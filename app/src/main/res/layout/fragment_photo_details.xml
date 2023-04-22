@@ -61,7 +61,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_photographer_url"
-            app:layout_constraintEnd_toStartOf="@id/iv_fav_details"
+            app:layout_constraintEnd_toStartOf="@id/iv_download_details"
             app:layout_constraintStart_toEndOf="@id/iv_photographer_profile"
             app:layout_constraintTop_toTopOf="@id/iv_photographer_profile" />
 
@@ -75,7 +75,7 @@
             android:text="Pexels.com"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/iv_photographer_profile"
-            app:layout_constraintEnd_toStartOf="@id/iv_fav_details"
+            app:layout_constraintEnd_toStartOf="@id/iv_download_details"
             app:layout_constraintStart_toEndOf="@id/iv_photographer_profile"
             app:layout_constraintTop_toBottomOf="@id/tv_photographer_name" />
 
@@ -87,6 +87,16 @@
             android:src="@drawable/ic_fav"
             app:layout_constraintBottom_toBottomOf="@id/iv_photographer_profile"
             app:layout_constraintEnd_toStartOf="@id/iv_set_wallpaper"
+            app:layout_constraintTop_toTopOf="@id/iv_photographer_profile" />
+
+        <ImageView
+            android:id="@+id/iv_download_details"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_download"
+            app:layout_constraintBottom_toBottomOf="@id/iv_photographer_profile"
+            app:layout_constraintEnd_toStartOf="@id/iv_fav_details"
             app:layout_constraintTop_toTopOf="@id/iv_photographer_profile" />
 
         <ImageView
