@@ -9,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.volie.wallhalla.data.model.Photo
 import com.volie.wallhalla.databinding.ItemFeedBinding
 
-class FeedAdapter : ListAdapter<Photo, FeedAdapter.FeedViewHolder>(
+class FeedAdapter(
+    val onItemClick: (photo: Photo) -> Unit
+) : ListAdapter<Photo, FeedAdapter.FeedViewHolder>(
     PhotoDiffCallBack()
 ) {
     inner class FeedViewHolder(private val binding: ItemFeedBinding) :
@@ -20,6 +22,10 @@ class FeedAdapter : ListAdapter<Photo, FeedAdapter.FeedViewHolder>(
                 Glide.with(root.context)
                     .load(item.src?.medium)
                     .into(ivFeedItem)
+
+                root.setOnClickListener {
+                    onItemClick(item)
+                }
             }
         }
     }

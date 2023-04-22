@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.volie.wallhalla.databinding.FragmentFeedBinding
 import com.volie.wallhalla.util.Status
@@ -20,7 +21,10 @@ class FeedFragment : Fragment() {
     private val mBinding get() = _mBinding!!
     private val mViewModel: FeedViewModel by viewModels()
     private val mAdapter: FeedAdapter by lazy {
-        FeedAdapter()
+        FeedAdapter {
+            val action = HomeFragmentDirections.actionHomeFragmentToPhotoDetailsFragment(it)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onCreateView(

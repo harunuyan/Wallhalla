@@ -19,7 +19,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.volie.wallhalla.view.fragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_photoDetailsFragment"
+            app:destination="@id/photoDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/collectionFragment"
         android:name="com.volie.wallhalla.view.fragment.CollectionFragment"
@@ -28,4 +32,25 @@
         android:id="@+id/settingFragment"
         android:name="com.volie.wallhalla.view.fragment.SettingFragment"
         android:label="SettingFragment" />
+    <fragment
+        android:id="@+id/photoDetailsFragment"
+        android:name="com.volie.wallhalla.view.fragment.PhotoDetailsFragment"
+        android:label="PhotoDetailsFragment">
+        <argument
+            android:name="info"
+            app:argType="com.volie.wallhalla.data.model.Photo" />
+        <action
+            android:id="@+id/action_photoDetailsFragment_to_photographerFragment"
+            app:destination="@id/photographerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photographerFragment"
+        android:name="com.volie.wallhalla.view.fragment.PhotographerFragment"
+        android:label="PhotographerFragment">
+        <argument
+            android:name="photographerUrl"
+            android:defaultValue="https://www.pexels.com"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>
