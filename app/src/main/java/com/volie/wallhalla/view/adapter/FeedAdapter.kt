@@ -38,7 +38,7 @@ class FeedAdapter(
             val item = currentList[position]
             with(binding) {
                 Glide.with(root.context)
-                    .load(item.src?.medium)
+                    .load(item.src?.large2x)
                     .into(ivFeedItem)
 
                 if (item.isLiked) {
