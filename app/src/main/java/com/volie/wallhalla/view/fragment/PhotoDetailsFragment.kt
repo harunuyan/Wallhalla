@@ -54,6 +54,16 @@ class PhotoDetailsFragment : Fragment() {
             }
         }
 
+        mBinding.ivFavDetails.setOnClickListener {
+            if (args.info.isLiked) {
+                mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
+                args.info.isLiked = false
+            } else {
+                mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
+                args.info.isLiked = true
+            }
+        }
+
         arguments?.let {
             args = PhotoDetailsFragmentArgs.fromBundle(it)
         }
@@ -182,6 +192,11 @@ class PhotoDetailsFragment : Fragment() {
             Glide.with(requireContext())
                 .load(args.info.src?.large2x)
                 .into(ivPhotoDetails)
+        }
+        if (args.info.isLiked) {
+            mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
+        } else {
+            mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
         }
     }
 

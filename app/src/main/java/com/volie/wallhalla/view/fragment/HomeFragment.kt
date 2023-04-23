@@ -22,8 +22,13 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _mBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        setupViewPager()
         return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupViewPager()
     }
 
     private fun setupViewPager() {

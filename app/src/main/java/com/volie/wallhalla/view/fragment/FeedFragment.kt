@@ -21,10 +21,22 @@ class FeedFragment : Fragment() {
     private val mBinding get() = _mBinding!!
     private val mViewModel: FeedViewModel by viewModels()
     private val mAdapter: FeedAdapter by lazy {
-        FeedAdapter {
-            val action = HomeFragmentDirections.actionHomeFragmentToPhotoDetailsFragment(it)
-            findNavController().navigate(action)
-        }
+        FeedAdapter(
+            onItemClick = {
+                val action = HomeFragmentDirections.actionHomeFragmentToPhotoDetailsFragment(it)
+                findNavController().navigate(action)
+            },
+            onFavClick = { photo, position ->
+                if (!photo.isLiked) {
+                    photo.isLiked = true
+                    mViewModel.savePhoto(photo)
+                } else {
+                    photo.isLiked = false
+                    mViewModel.deletePhoto(photo)
+                }
+                mAdapter.notifyItemChanged(position)
+            }
+        )
     }
 
     override fun onCreateView(
@@ -38,10 +50,13 @@ class FeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mBinding.srlFeed
+
         setupRecyclerView()
         setupPullToRefresh()
-        mViewModel.getWallpapers()
         observeLiveData()
+        mViewModel.getWallpapers()
     }
 
     private fun observeLiveData() {

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.volie.wallhalla.data.model.CuratedResponse
+import com.volie.wallhalla.data.model.Photo
 import com.volie.wallhalla.data.repo.Repository
 import com.volie.wallhalla.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,18 @@ class FeedViewModel
         viewModelScope.launch(Dispatchers.IO) {
             _wallpapers.postValue(Resource.loading(null))
             _wallpapers.postValue(repository.getWallpapers())
+        }
+    }
+
+    fun savePhoto(photo: Photo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insertCuratedResponse(photo)
+        }
+    }
+
+    fun deletePhoto(photo: Photo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteCuratedResponse(photo)
         }
     }
 }
