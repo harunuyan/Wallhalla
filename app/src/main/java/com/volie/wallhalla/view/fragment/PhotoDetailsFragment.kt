@@ -1,5 +1,6 @@
 package com.volie.wallhalla.view.fragment
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentValues
@@ -10,11 +11,15 @@ import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -45,31 +50,52 @@ class PhotoDetailsFragment : Fragment() {
         return mBinding.root
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        onBackPressed()
 
         with(mBinding) {
             ivBackDetails.setOnClickListener {
                 findNavController().popBackStack()
             }
-        }
+            ivFavDetails.setOnClickListener {
+                if (args.info.isLiked) {
+                    mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
+                    args.info.isLiked = false
+                } else {
+                    mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
+                    args.info.isLiked = true
+                }
+            }
+            ivDownloadDetails.setOnClickListener {
+                downloadImage()
+            }
+            ivPhotoDetails.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        Handler(Looper.myLooper()!!).postDelayed({
+                            clPhotoDetails.visibility = View.GONE
+                            ivBackDetails.visibility = View.GONE
+                            ivInfoDetails.visibility = View.GONE
+                        }, 200)
+                    }
 
-        mBinding.ivFavDetails.setOnClickListener {
-            if (args.info.isLiked) {
-                mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
-                args.info.isLiked = false
-            } else {
-                mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
-                args.info.isLiked = true
+                    MotionEvent.ACTION_UP -> {
+                        Handler(Looper.myLooper()!!).postDelayed({
+                            clPhotoDetails.visibility = View.VISIBLE
+                            ivBackDetails.visibility = View.VISIBLE
+                            ivInfoDetails.visibility = View.VISIBLE
+                        }, 100)
+                    }
+                }
+                true
             }
         }
 
         arguments?.let {
             args = PhotoDetailsFragmentArgs.fromBundle(it)
-        }
-
-        mBinding.ivDownloadDetails.setOnClickListener {
-            downloadImage()
         }
 
         getDetails()
@@ -198,6 +224,16 @@ class PhotoDetailsFragment : Fragment() {
         } else {
             mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
         }
+    }
+
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            })
     }
 
     override fun onDestroyView() {
