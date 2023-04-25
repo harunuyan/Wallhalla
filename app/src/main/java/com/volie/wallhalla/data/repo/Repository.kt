@@ -3,6 +3,7 @@ package com.volie.wallhalla.data.repo
 import com.volie.wallhalla.data.db.CuratedResponseDao
 import com.volie.wallhalla.data.model.CuratedResponse
 import com.volie.wallhalla.data.model.Photo
+import com.volie.wallhalla.data.model.collection.CollectionResponse
 import com.volie.wallhalla.data.service.WallpaperService
 import com.volie.wallhalla.util.Resource
 import javax.inject.Inject
@@ -23,6 +24,21 @@ class Repository
                             photo.isLiked = isFavorite(photo.id)
                         }
                     }
+                    return@let Resource.success(it)
+                } ?: Resource.error("An unknown error occured", null)
+            } else {
+                Resource.error("An unknown error occured", null)
+            }
+        } catch (e: Exception) {
+            Resource.error("Couldn't reach the server. Check your internet connection", null)
+        }
+    }
+
+    suspend fun getFeaturedCollections(): Resource<CollectionResponse> {
+        return try {
+            val response = service.getFeaturedCollections()
+            if (response.isSuccessful) {
+                response.body()?.let {
                     return@let Resource.success(it)
                 } ?: Resource.error("An unknown error occured", null)
             } else {
