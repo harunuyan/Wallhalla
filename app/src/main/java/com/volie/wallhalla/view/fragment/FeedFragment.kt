@@ -33,6 +33,7 @@ class FeedFragment : Fragment() {
             onFavClick = { photo, position ->
                 if (!photo.isLiked) {
                     photo.isLiked = true
+
                     mViewModel.savePhoto(photo)
                 } else {
                     photo.isLiked = false

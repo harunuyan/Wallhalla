@@ -23,10 +23,13 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.FragmentPhotoDetailsBinding
+import com.volie.wallhalla.view.viewmodel.PhotoDetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,9 +39,11 @@ import okhttp3.Request
 import java.io.IOException
 import java.io.InputStream
 
+@AndroidEntryPoint
 class PhotoDetailsFragment : Fragment() {
     private var _mBinding: FragmentPhotoDetailsBinding? = null
     private val mBinding get() = _mBinding!!
+    private val mViewModel: PhotoDetailsViewModel by viewModels()
     private lateinit var args: PhotoDetailsFragmentArgs
 
     override fun onCreateView(
@@ -54,6 +59,10 @@ class PhotoDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        arguments?.let {
+            args = PhotoDetailsFragmentArgs.fromBundle(it)
+        }
+
         onBackPressed()
 
         with(mBinding) {
@@ -61,12 +70,14 @@ class PhotoDetailsFragment : Fragment() {
                 findNavController().popBackStack()
             }
             ivFavDetails.setOnClickListener {
-                if (args.info.isLiked) {
-                    mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
-                    args.info.isLiked = false
-                } else {
+                if (!args.info.isLiked) {
                     mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
                     args.info.isLiked = true
+                    mViewModel.savePhoto(args.info)
+                } else {
+                    mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
+                    args.info.isLiked = false
+                    mViewModel.deletePhoto(args.info)
                 }
             }
             ivDownloadDetails.setOnClickListener {
@@ -92,10 +103,6 @@ class PhotoDetailsFragment : Fragment() {
                 }
                 true
             }
-        }
-
-        arguments?.let {
-            args = PhotoDetailsFragmentArgs.fromBundle(it)
         }
 
         getDetails()
