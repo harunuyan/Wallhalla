@@ -1,6 +1,8 @@
 package com.volie.wallhalla.view.fragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.volie.wallhalla.databinding.FragmentFeedBinding
+import com.volie.wallhalla.util.PaginationScrollListener
 import com.volie.wallhalla.util.Status
 import com.volie.wallhalla.view.adapter.FeedAdapter
 import com.volie.wallhalla.view.viewmodel.FeedViewModel
@@ -38,6 +41,11 @@ class FeedFragment : Fragment() {
             }
         )
     }
+    private val pageStart: Int = 1
+    private var isLoading: Boolean = false
+    private var isLastPage: Boolean = false
+    private var totalPages: Int = 1
+    private var currentPage: Int = pageStart
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +64,7 @@ class FeedFragment : Fragment() {
         setupRecyclerView()
         setupPullToRefresh()
         observeLiveData()
-        mViewModel.getWallpapers()
+        mViewModel.getWallpapers(currentPage)
     }
 
     private fun observeLiveData() {
@@ -68,6 +76,7 @@ class FeedFragment : Fragment() {
                         rvFeed.visibility = View.VISIBLE
                         tvNoInternet.visibility = View.GONE
                     }
+                    isLoading = false
                     it.data?.let { data ->
                         mAdapter.submitList(data.photos)
                     }
@@ -97,13 +106,39 @@ class FeedFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        mBinding.rvFeed.adapter = mAdapter
-        mBinding.rvFeed.layoutManager = GridLayoutManager(requireContext(), 2)
+        val mLayoutManager = GridLayoutManager(requireContext(), 2)
+        with(mBinding.rvFeed) {
+            adapter = mAdapter
+            layoutManager = mLayoutManager
+            addOnScrollListener(object : PaginationScrollListener(mLayoutManager) {
+                override fun loadMoreItems() {
+                    isLoading = true
+                    currentPage++
+
+                    Handler(Looper.myLooper()!!).postDelayed({
+                        mViewModel.getWallpapers(currentPage)
+                    }, 1000)
+                }
+
+                override fun getTotalPageCount(): Int {
+                    return totalPages
+                }
+
+                override fun isLastPage(): Boolean {
+                    return isLastPage
+                }
+
+                override fun isLoading(): Boolean {
+                    return isLoading
+                }
+
+            })
+        }
     }
 
     private fun setupPullToRefresh() {
         mBinding.srlFeed.setOnRefreshListener {
-            mViewModel.getWallpapers()
+            mViewModel.getWallpapers(pageStart)
             mBinding.srlFeed.isRefreshing = false
         }
     }

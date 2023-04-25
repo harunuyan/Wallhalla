@@ -22,10 +22,10 @@ class FeedViewModel
     private val _wallpapers = MutableLiveData<Resource<CuratedResponse>>()
     val wallpapers: LiveData<Resource<CuratedResponse>> = _wallpapers
 
-    fun getWallpapers() {
+    fun getWallpapers(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _wallpapers.postValue(Resource.loading(null))
-            _wallpapers.postValue(repository.getWallpapers())
+            _wallpapers.postValue(repository.getWallpapers(page))
         }
     }
 

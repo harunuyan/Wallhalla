@@ -13,9 +13,9 @@ class Repository
     private val dao: CuratedResponseDao
 ) {
 
-    suspend fun getWallpapers(): Resource<CuratedResponse> {
+    suspend fun getWallpapers(page: Int): Resource<CuratedResponse> {
         return try {
-            val response = service.getWallpapers()
+            val response = service.getWallpapers(page = page)
             if (response.isSuccessful) {
                 response.body()?.let {
                     it.photos?.forEach { photo ->
