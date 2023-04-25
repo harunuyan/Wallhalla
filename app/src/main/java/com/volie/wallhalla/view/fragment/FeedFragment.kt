@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -59,8 +60,7 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mBinding.srlFeed
-
+        onBackPressed()
         setupRecyclerView()
         setupPullToRefresh()
         observeLiveData()
@@ -141,6 +141,21 @@ class FeedFragment : Fragment() {
             mViewModel.getWallpapers(pageStart)
             mBinding.srlFeed.isRefreshing = false
         }
+    }
+
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (currentPage == pageStart) {
+                        findNavController().navigateUp()
+                    } else {
+                        currentPage--
+                        mViewModel.getWallpapers(currentPage)
+                    }
+                }
+            })
     }
 
     override fun onDestroy() {
