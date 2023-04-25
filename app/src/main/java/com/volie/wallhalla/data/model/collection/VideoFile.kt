@@ -1,5 +1,9 @@
 package com.volie.wallhalla.data.model.collection
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class VideoFile(
     val file_type: String? = null,
     val fps: Double? = null,
@@ -8,4 +12,4 @@ data class VideoFile(
     val link: String? = null,
     val quality: String? = null,
     val width: Int? = null
-)
+) : Parcelable

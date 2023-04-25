@@ -1,5 +1,9 @@
 package com.volie.wallhalla.data.model.collection
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class CollectionFeedResponse(
     val id: String? = null,
     val media: List<Media?>? = null,
@@ -7,4 +11,4 @@ data class CollectionFeedResponse(
     val page: Int? = null,
     val per_page: Int? = null,
     val total_results: Int? = null
-)
+) : Parcelable
