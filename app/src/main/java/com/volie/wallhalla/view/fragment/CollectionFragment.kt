@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -50,6 +51,7 @@ class CollectionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        onBackPressed()
         setupRecyclerView()
         observeLiveData()
         mViewModel.getFeaturedCollections(currentPage)
@@ -76,7 +78,7 @@ class CollectionFragment : Fragment() {
         }
     }
 
-    fun setupRecyclerView() {
+    private fun setupRecyclerView() {
         val mLayoutManager = GridLayoutManager(requireContext(), 1)
         with(mBinding.rvCollection) {
             adapter = mAdapter
@@ -105,6 +107,21 @@ class CollectionFragment : Fragment() {
 
             })
         }
+    }
+
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (currentPage == pageStart) {
+                        findNavController().navigateUp()
+                    } else {
+                        currentPage--
+                        mViewModel.getFeaturedCollections(currentPage)
+                    }
+                }
+            })
     }
 
     override fun onDestroy() {
