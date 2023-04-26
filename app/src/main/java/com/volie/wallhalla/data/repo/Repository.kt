@@ -34,9 +34,9 @@ class Repository
         }
     }
 
-    suspend fun getFeaturedCollections(): Resource<CollectionResponse> {
+    suspend fun getFeaturedCollections(page: Int): Resource<CollectionResponse> {
         return try {
-            val response = service.getFeaturedCollections()
+            val response = service.getFeaturedCollections(page)
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.success(it)

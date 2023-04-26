@@ -21,10 +21,10 @@ class CollectionViewModel
     private val _collections = MutableLiveData<Resource<CollectionResponse>>()
     val collections: LiveData<Resource<CollectionResponse>> = _collections
 
-    fun getFeaturedCollections() {
+    fun getFeaturedCollections(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _collections.postValue(Resource.loading(null))
-            _collections.postValue(repository.getFeaturedCollections())
+            _collections.postValue(repository.getFeaturedCollections(page))
         }
     }
 }
