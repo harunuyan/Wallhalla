@@ -1,6 +1,7 @@
 package com.volie.wallhalla.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.volie.wallhalla.data.model.collection.Collection
 import com.volie.wallhalla.databinding.ItemCollectionBinding
+import kotlin.random.Random
 
 class CollectionAdapter(
     val onItemClick: (collection: Collection) -> Unit
@@ -17,15 +19,22 @@ class CollectionAdapter(
     ) {
     inner class CollectionViewHolder(private val binding: ItemCollectionBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(position: Int) {
             val item = currentList[position]
             with(binding) {
                 Glide.with(root.context)
-                    .load("https://picsum.photos/400/200")
+                    .load(getRandomImageUrl())
                     .into(ivCollectionItem)
                 tvCollectionTitleItem.text = item.title
-                tvCollectionPhotoCountItem.text = item.photos_count.toString()
-                tvCollectionVideoCountItem.text = item.videos_count.toString()
+                tvCollectionPhotoCountItem.text = "${item.photos_count.toString()} photos"
+                tvCollectionVideoCountItem.text = "${item.videos_count.toString()} videos"
+                if (item.description != null) {
+                    tvCollectionDescriptionItem.text = item.description
+                    tvCollectionDescriptionItem.visibility = View.VISIBLE
+                } else {
+                    tvCollectionDescriptionItem.visibility = View.GONE
+                }
                 root.setOnClickListener {
                     onItemClick(item)
                 }
@@ -45,6 +54,12 @@ class CollectionAdapter(
 
     override fun getItemCount(): Int {
         return currentList.size
+    }
+
+    private fun getRandomImageUrl(): String {
+        val width = 380 + Random.nextInt(20)
+        val height = 190 + Random.nextInt(10)
+        return "https://picsum.photos/$width/$height"
     }
 }
 
