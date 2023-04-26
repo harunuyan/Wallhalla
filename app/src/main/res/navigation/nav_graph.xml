@@ -63,6 +63,6 @@
     </fragment>
     <fragment
         android:id="@+id/collectionFeedFragment"
-        android:name="com.volie.wallhalla.view.fragment.CollectionFeedFragment"
+        android:name="com.volie.wallhalla.view.fragment.CollectionPhotoFragment"
         android:label="CollectionFeedFragment" />
 </navigation>

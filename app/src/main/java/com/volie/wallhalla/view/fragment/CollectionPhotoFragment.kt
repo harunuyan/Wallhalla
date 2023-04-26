@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.volie.wallhalla.databinding.FragmentCollectionFeedBinding
+import com.volie.wallhalla.databinding.FragmentCollectionPhotoBinding
 
-class CollectionFeedFragment : Fragment() {
-    private var _mBinding: FragmentCollectionFeedBinding? = null
+class CollectionPhotoFragment : Fragment() {
+    private var _mBinding: FragmentCollectionPhotoBinding? = null
     private val mBinding get() = _mBinding!!
 
     override fun onCreateView(
@@ -16,7 +16,7 @@ class CollectionFeedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _mBinding = FragmentCollectionFeedBinding.inflate(inflater, container, false)
+        _mBinding = FragmentCollectionPhotoBinding.inflate(inflater, container, false)
         return mBinding.root
     }
 
