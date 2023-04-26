@@ -62,7 +62,11 @@
             app:nullable="true" />
     </fragment>
     <fragment
-        android:id="@+id/collectionFeedFragment"
+        android:id="@+id/collectionPhotoFragment"
         android:name="com.volie.wallhalla.view.fragment.CollectionPhotoFragment"
+        android:label="CollectionFeedFragment" />
+    <fragment
+        android:id="@+id/collectionFeedFragment"
+        android:name="com.volie.wallhalla.view.fragment.CollectionFeedFragment"
         android:label="CollectionFeedFragment" />
 </navigation>
