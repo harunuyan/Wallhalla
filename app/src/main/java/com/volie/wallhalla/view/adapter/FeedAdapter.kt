@@ -7,20 +7,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.volie.wallhalla.R
-import com.volie.wallhalla.data.model.Photo
+import com.volie.wallhalla.data.model.Media
 import com.volie.wallhalla.databinding.ItemFeedBinding
 
 class FeedAdapter(
-    val onItemClick: (photo: Photo) -> Unit,
-    val onFavClick: (photo: Photo, position: Int) -> Unit
-) : ListAdapter<Photo, FeedAdapter.FeedViewHolder>(
+    val onItemClick: (photo: Media) -> Unit,
+    val onFavClick: (photo: Media, position: Int) -> Unit
+) : ListAdapter<Media, FeedAdapter.FeedViewHolder>(
     PhotoDiffCallBack()
 ) {
 
     inner class FeedViewHolder(
         private val binding: ItemFeedBinding,
-        onFavClick: (photo: Photo, position: Int) -> Unit,
-        onItemClick: (photo: Photo) -> Unit
+        onFavClick: (photo: Media, position: Int) -> Unit,
+        onItemClick: (photo: Media) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -38,7 +38,7 @@ class FeedAdapter(
             val item = currentList[position]
             with(binding) {
                 Glide.with(root.context)
-                    .load(item.src?.large2x)
+                    .load(item.src.large2x)
                     .into(ivFeedItem)
 
                 if (item.isLiked) {
@@ -63,12 +63,12 @@ class FeedAdapter(
         return currentList.size
     }
 
-    class PhotoDiffCallBack : DiffUtil.ItemCallback<Photo>() {
-        override fun areItemsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+    class PhotoDiffCallBack : DiffUtil.ItemCallback<Media>() {
+        override fun areItemsTheSame(oldItem: Media, newItem: Media): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Photo, newItem: Photo): Boolean {
+        override fun areContentsTheSame(oldItem: Media, newItem: Media): Boolean {
             return oldItem == newItem
         }
 

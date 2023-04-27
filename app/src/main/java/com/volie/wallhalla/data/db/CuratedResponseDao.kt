@@ -5,20 +5,20 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.volie.wallhalla.data.model.Photo
+import com.volie.wallhalla.data.model.Media
 
 @Dao
 interface CuratedResponseDao {
 
-    @Query("SELECT * FROM photo_table")
-    suspend fun getWallpapers(): List<Photo>
+    @Query("SELECT * FROM media_table")
+    suspend fun getWallpapers(): List<Media>
 
-    @Query("SELECT EXISTS(SELECT * FROM photo_table WHERE id = :id)")
-    suspend fun isLiked(id: Long): Boolean
+    @Query("SELECT EXISTS(SELECT * FROM media_table WHERE id = :id)")
+    suspend fun isLiked(id: Int): Boolean
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPhoto(photo: Photo)
+    suspend fun insertPhoto(photo: Media)
 
     @Delete
-    suspend fun deletePhoto(photo: Photo)
+    suspend fun deletePhoto(photo: Media)
 }

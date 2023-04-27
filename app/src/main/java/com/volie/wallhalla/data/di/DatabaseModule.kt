@@ -3,7 +3,7 @@ package com.volie.wallhalla.data.di
 import android.content.Context
 import androidx.room.Room
 import com.volie.wallhalla.data.db.CuratedResponseDao
-import com.volie.wallhalla.data.db.CuratedResponseDatabase
+import com.volie.wallhalla.data.db.WallpaperDatabase
 import com.volie.wallhalla.util.Constant.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -18,10 +18,10 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideCuratedResponseDatabase(@ApplicationContext context: Context): CuratedResponseDatabase {
+    fun provideCuratedResponseDatabase(@ApplicationContext context: Context): WallpaperDatabase {
         return Room.databaseBuilder(
             context,
-            CuratedResponseDatabase::class.java,
+            WallpaperDatabase::class.java,
             DATABASE_NAME
         ).build(
         )
@@ -29,7 +29,7 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesCuratedResponseDao(database: CuratedResponseDatabase): CuratedResponseDao {
+    fun providesCuratedResponseDao(database: WallpaperDatabase): CuratedResponseDao {
         return database.getCuratedResponseDao()
     }
 }

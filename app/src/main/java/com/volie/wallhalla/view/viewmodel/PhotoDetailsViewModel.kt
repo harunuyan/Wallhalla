@@ -2,7 +2,7 @@ package com.volie.wallhalla.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.volie.wallhalla.data.model.Photo
+import com.volie.wallhalla.data.model.Media
 import com.volie.wallhalla.data.repo.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,13 +15,13 @@ class PhotoDetailsViewModel
     private val repository: Repository
 ) : ViewModel() {
 
-    fun savePhoto(photo: Photo) {
+    fun savePhoto(photo: Media) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertCuratedResponse(photo)
         }
     }
 
-    fun deletePhoto(photo: Photo) {
+    fun deletePhoto(photo: Media) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteCuratedResponse(photo)
 

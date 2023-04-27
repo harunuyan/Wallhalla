@@ -44,12 +44,12 @@
         android:id="@+id/photoDetailsFragment"
         android:name="com.volie.wallhalla.view.fragment.PhotoDetailsFragment"
         android:label="PhotoDetailsFragment">
-        <argument
-            android:name="info"
-            app:argType="com.volie.wallhalla.data.model.Photo" />
         <action
             android:id="@+id/action_photoDetailsFragment_to_photographerFragment"
             app:destination="@id/photographerFragment" />
+        <argument
+            android:name="media"
+            app:argType="com.volie.wallhalla.data.model.Media" />
     </fragment>
     <fragment
         android:id="@+id/photographerFragment"
@@ -64,9 +64,24 @@
     <fragment
         android:id="@+id/collectionPhotoFragment"
         android:name="com.volie.wallhalla.view.fragment.CollectionPhotoFragment"
-        android:label="CollectionFeedFragment" />
+        android:label="CollectionFeedFragment">
+        <action
+            android:id="@+id/action_collectionPhotoFragment_to_photoDetailsFragment"
+            app:destination="@id/photoDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/collectionFeedFragment"
         android:name="com.volie.wallhalla.view.fragment.CollectionFeedFragment"
-        android:label="CollectionFeedFragment" />
+        android:label="CollectionFeedFragment">
+        <action
+            android:id="@+id/action_collectionFeedFragment_to_photoDetailsFragment"
+            app:destination="@id/photoDetailsFragment" />
+        <argument
+            android:name="info"
+            app:argType="com.volie.wallhalla.data.model.Collection" />
+    </fragment>
+    <fragment
+        android:id="@+id/collectionVideoFragment"
+        android:name="com.volie.wallhalla.view.fragment.CollectionVideoFragment"
+        android:label="CollectionVideoFragment" />
 </navigation>

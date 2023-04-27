@@ -41,6 +41,7 @@ import java.io.InputStream
 
 @AndroidEntryPoint
 class PhotoDetailsFragment : Fragment() {
+
     private var _mBinding: FragmentPhotoDetailsBinding? = null
     private val mBinding get() = _mBinding!!
     private val mViewModel: PhotoDetailsViewModel by viewModels()
@@ -70,14 +71,14 @@ class PhotoDetailsFragment : Fragment() {
                 findNavController().popBackStack()
             }
             ivFavDetails.setOnClickListener {
-                if (!args.info.isLiked) {
+                if (!args.media.isLiked) {
                     mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
-                    args.info.isLiked = true
-                    mViewModel.savePhoto(args.info)
+                    args.media.isLiked = true
+                    mViewModel.savePhoto(args.media)
                 } else {
                     mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
-                    args.info.isLiked = false
-                    mViewModel.deletePhoto(args.info)
+                    args.media.isLiked = false
+                    mViewModel.deletePhoto(args.media)
                 }
             }
             ivDownloadDetails.setOnClickListener {
@@ -119,7 +120,7 @@ class PhotoDetailsFragment : Fragment() {
             val client = OkHttpClient()
 
             val request = Request.Builder()
-                .url(args.info.src?.large2x.toString())
+                .url(args.media.src.large2x.toString())
                 .build()
 
             val response = client.newCall(request).execute()
@@ -213,20 +214,20 @@ class PhotoDetailsFragment : Fragment() {
 
     private fun getDetails() {
         with(mBinding) {
-            tvPhotographerName.text = args.info.photographer
-            tvPhotographerUrl.text = args.info.photographer_url
+            tvPhotographerName.text = args.media.photographer
+            tvPhotographerUrl.text = args.media.photographerUrl
             tvPhotographerUrl.setOnClickListener {
                 val action =
                     PhotoDetailsFragmentDirections.actionPhotoDetailsFragmentToPhotographerFragment(
-                        args.info.photographer_url
+                        args.media.photographerUrl
                     )
                 findNavController().navigate(action)
             }
             Glide.with(requireContext())
-                .load(args.info.src?.large2x)
+                .load(args.media.src.large2x)
                 .into(ivPhotoDetails)
         }
-        if (args.info.isLiked) {
+        if (args.media.isLiked) {
             mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
         } else {
             mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)

@@ -79,7 +79,7 @@ class FeedFragment : Fragment() {
                     }
                     isLoading = false
                     it.data?.let { data ->
-                        mAdapter.submitList(data.photos)
+                        mAdapter.submitList(data.media)
                     }
                 }
 

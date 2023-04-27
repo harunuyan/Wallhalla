@@ -27,7 +27,7 @@ class CollectionFragment : Fragment() {
         CollectionAdapter(
             onItemClick = {
                 val action =
-                    CollectionFragmentDirections.actionCollectionFragmentToCollectionFeedFragment()
+                    CollectionFragmentDirections.actionCollectionFragmentToCollectionFeedFragment(it)
                 findNavController().navigate(action)
             }
         )

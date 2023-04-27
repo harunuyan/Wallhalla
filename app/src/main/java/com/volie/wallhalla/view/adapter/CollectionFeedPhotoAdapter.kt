@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.volie.wallhalla.R
-import com.volie.wallhalla.data.model.collection.Media
+import com.volie.wallhalla.data.model.Media
 import com.volie.wallhalla.databinding.ItemFeedBinding
 
 class CollectionFeedPhotoAdapter(
@@ -37,7 +37,7 @@ class CollectionFeedPhotoAdapter(
             val item = currentList[position]
             with(binding) {
                 Glide.with(root.context)
-                    .load(item.src?.large2x)
+                    .load(item.src.large2x)
                     .into(ivFeedItem)
 
                 if (item.isLiked) {

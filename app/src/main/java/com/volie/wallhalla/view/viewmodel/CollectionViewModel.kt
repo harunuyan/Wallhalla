@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.volie.wallhalla.data.model.collection.CollectionResponse
+import com.volie.wallhalla.data.model.CollectionResponse
 import com.volie.wallhalla.data.repo.Repository
 import com.volie.wallhalla.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel

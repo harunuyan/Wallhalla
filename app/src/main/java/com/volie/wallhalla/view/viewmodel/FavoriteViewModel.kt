@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.volie.wallhalla.data.model.Photo
+import com.volie.wallhalla.data.model.Media
 import com.volie.wallhalla.data.repo.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,8 +16,8 @@ class FavoriteViewModel
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _savedPhotos = MutableLiveData<List<Photo>>()
-    val savedPhotos: LiveData<List<Photo>> = _savedPhotos
+    private val _savedPhotos = MutableLiveData<List<Media>>()
+    val savedPhotos: LiveData<List<Media>> = _savedPhotos
 
     fun getSavedPhotos() {
         viewModelScope.launch {
@@ -26,7 +26,7 @@ class FavoriteViewModel
         }
     }
 
-    fun deletePhoto(photo: Photo) {
+    fun deletePhoto(photo: Media) {
         viewModelScope.launch {
             repository.deleteCuratedResponse(photo)
         }

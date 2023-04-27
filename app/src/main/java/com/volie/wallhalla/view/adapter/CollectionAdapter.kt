@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.volie.wallhalla.data.model.collection.Collection
+import com.volie.wallhalla.data.model.Collection
 import com.volie.wallhalla.databinding.ItemCollectionBinding
 import kotlin.random.Random
 
@@ -27,8 +27,8 @@ class CollectionAdapter(
                     .load(getRandomImageUrl())
                     .into(ivCollectionItem)
                 tvCollectionTitleItem.text = item.title
-                tvCollectionPhotoCountItem.text = "${item.photos_count.toString()} photos"
-                tvCollectionVideoCountItem.text = "${item.videos_count.toString()} videos"
+                tvCollectionPhotoCountItem.text = "${item.photosCount} photos"
+                tvCollectionVideoCountItem.text = "${item.videosCount} videos"
                 if (item.description != null) {
                     tvCollectionDescriptionItem.text = item.description
                     tvCollectionDescriptionItem.visibility = View.VISIBLE
