@@ -50,9 +50,13 @@ class Repository
         }
     }
 
-    suspend fun getCollectionPhotos(id: String, page: Int): Resource<CollectionMediaResponse> {
+    suspend fun getCollectionResults(
+        id: String,
+        page: Int,
+        type: String
+    ): Resource<CollectionMediaResponse> {
         return try {
-            val response = service.getCollections(id = id, page = page)
+            val response = service.getCollections(id = id, page = page, type = type)
             if (response.isSuccessful) {
                 response.body()?.let {
                     return@let Resource.success(it)

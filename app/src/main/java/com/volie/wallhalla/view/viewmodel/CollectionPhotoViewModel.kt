@@ -25,7 +25,7 @@ class CollectionPhotoViewModel
     fun getCollectionPhotos(id: String, page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _photos.postValue(Resource.loading(null))
-            _photos.postValue(repository.getCollectionPhotos(id, page))
+            _photos.postValue(repository.getCollectionResults(id, page, "photos"))
         }
     }
 

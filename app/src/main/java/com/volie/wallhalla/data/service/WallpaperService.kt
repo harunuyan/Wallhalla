@@ -38,10 +38,10 @@ interface WallpaperService {
         id: String,
         @Query("page")
         page: Int? = 1,
-        @Query("per_page")
-        perPage: Int? = 40,
         @Query("type")
         type: String? = "photos",
+        @Query("per_page")
+        perPage: Int? = 40,
         @Header("Authorization")
         authorization: String = AUTHORIZATION
     ): Response<CollectionMediaResponse>
