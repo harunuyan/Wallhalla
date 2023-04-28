@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.FragmentHomeBinding
-import com.volie.wallhalla.view.adapter.HomeViewPagerAdapter
+import com.volie.wallhalla.view.adapter.ViewPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,7 +32,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        val adapter = HomeViewPagerAdapter(requireActivity())
+        val pages = listOf(
+            FeedFragment(),
+            SearchFragment()
+        )
+        val adapter = ViewPagerAdapter(requireActivity(), pages)
         mBinding.viewPagerHome.adapter = adapter
         TabLayoutMediator(mBinding.tabLayoutHome, mBinding.viewPagerHome) { tab, position ->
             when (position) {
