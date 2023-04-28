@@ -37,7 +37,7 @@ class CollectionFeedPhotoAdapter(
             val item = currentList[position]
             with(binding) {
                 Glide.with(root.context)
-                    .load(item.src.large2x)
+                    .load(item.src?.large2x)
                     .into(ivFeedItem)
 
                 if (item.isLiked) {

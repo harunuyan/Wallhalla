@@ -18,7 +18,7 @@ data class Media(
     val photographerUrl: String,
     @SerializedName("avg_color")
     val avgColor: String,
-    val src: Src,
+    val src: Src? = null,
     var isLiked: Boolean,
     val image: String? = null,
     val user: User? = null,
