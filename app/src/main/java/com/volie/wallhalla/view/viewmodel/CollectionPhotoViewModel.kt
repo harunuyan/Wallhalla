@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.volie.wallhalla.data.model.CollectionMediaResponse
+import com.volie.wallhalla.data.model.Media
 import com.volie.wallhalla.data.repo.Repository
 import com.volie.wallhalla.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,18 @@ class CollectionPhotoViewModel
         viewModelScope.launch(Dispatchers.IO) {
             _photos.postValue(Resource.loading(null))
             _photos.postValue(repository.getCollectionPhotos(id, page))
+        }
+    }
+
+    fun savePhoto(photo: Media) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.insertPhoto(photo)
+        }
+    }
+
+    fun deletePhoto(photo: Media) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deletePhoto(photo)
         }
     }
 }
