@@ -79,6 +79,9 @@ dependencies {
     // Hilt
     implementation "com.google.dagger:hilt-android:2.45"
     kapt "com.google.dagger:hilt-compiler:2.45"
+
+    // Exo Player
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.6'
 }
 // Allow references to generated code
 kapt {
