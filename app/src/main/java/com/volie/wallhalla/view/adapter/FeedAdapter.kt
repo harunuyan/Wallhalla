@@ -46,6 +46,11 @@ class FeedAdapter(
                 } else {
                     ivFeedItemFav.setImageResource(R.drawable.ic_fav)
                 }
+                if (item.type == "videos") {
+                    ivPlayVideo.visibility = ViewGroup.VISIBLE
+                } else {
+                    ivPlayVideo.visibility = ViewGroup.GONE
+                }
             }
         }
     }

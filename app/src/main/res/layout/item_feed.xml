@@ -28,6 +28,14 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic_fav" />
 
+        <ImageView
+            android:id="@+id/iv_play_video"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_play_video" />
+
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
