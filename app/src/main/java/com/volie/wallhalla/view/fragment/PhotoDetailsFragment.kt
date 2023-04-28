@@ -30,6 +30,7 @@ import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.FragmentPhotoDetailsBinding
 import com.volie.wallhalla.view.viewmodel.PhotoDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -109,6 +110,7 @@ class PhotoDetailsFragment : Fragment() {
         getDetails()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun downloadImage() {
         if (!isNetworkAvailable()) {
             mBinding.ivDownloadDetails.setImageResource(R.drawable.ic_download_failed)

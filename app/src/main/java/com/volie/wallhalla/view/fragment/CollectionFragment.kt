@@ -59,22 +59,29 @@ class CollectionFragment : Fragment() {
 
     private fun observeLiveData() {
         mViewModel.collections.observe(viewLifecycleOwner) { resource ->
-            when (resource.status) {
-                Status.SUCCESS -> {
-                    mBinding.pbCollection.visibility = View.GONE
-                    isLoading = false
-                    resource.data?.let {
-                        mAdapter.submitList(it.collections)
+            with(mBinding) {
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        pbCollection.visibility = View.GONE
+                        rvCollection.visibility = View.VISIBLE
+                        isLoading = false
+                        resource.data?.let {
+                            mAdapter.submitList(it.collections)
+                        }
+                    }
+
+                    Status.ERROR -> {
+                        pbCollection.visibility = View.VISIBLE
+                        rvCollection.visibility = View.GONE
+                    }
+
+                    Status.LOADING -> {
+                        pbCollection.visibility = View.VISIBLE
+                        rvCollection.visibility = View.GONE
                     }
                 }
-
-                Status.ERROR -> {
-                }
-
-                Status.LOADING -> {
-                    mBinding.pbCollection.visibility = View.VISIBLE
-                }
             }
+
         }
     }
 

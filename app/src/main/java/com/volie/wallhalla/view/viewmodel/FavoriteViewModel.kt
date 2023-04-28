@@ -28,7 +28,7 @@ class FavoriteViewModel
 
     fun deletePhoto(photo: Media) {
         viewModelScope.launch {
-            repository.deleteCuratedResponse(photo)
+            repository.deletePhoto(photo)
         }
     }
 }

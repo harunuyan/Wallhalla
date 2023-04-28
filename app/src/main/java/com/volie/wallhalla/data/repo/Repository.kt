@@ -15,7 +15,7 @@ class Repository
     private val dao: CuratedResponseDao
 ) {
 
-    suspend fun getWallpapers(page: Int): Resource<CuratedResponse> {
+    suspend fun getWallpapersFromRemote(page: Int): Resource<CuratedResponse> {
         return try {
             val response = service.getWallpapers(page = page)
             if (response.isSuccessful) {
@@ -65,7 +65,7 @@ class Repository
         }
     }
 
-    suspend fun isFavorite(id: Int): Boolean {
+    private suspend fun isFavorite(id: Int): Boolean {
         return dao.isLiked(id)
     }
 
@@ -73,11 +73,11 @@ class Repository
         return dao.getWallpapers()
     }
 
-    suspend fun insertCuratedResponse(photo: Media) {
+    suspend fun insertPhoto(photo: Media) {
         dao.insertPhoto(photo)
     }
 
-    suspend fun deleteCuratedResponse(photo: Media) {
+    suspend fun deletePhoto(photo: Media) {
         dao.deletePhoto(photo)
     }
 }

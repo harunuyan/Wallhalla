@@ -70,39 +70,36 @@ class FeedFragment : Fragment() {
 
     private fun observeLiveData() {
         mViewModel.wallpapers.observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    with(mBinding) {
+            with(mBinding) {
+                when (it.status) {
+                    Status.SUCCESS -> {
                         pbFeed.visibility = View.GONE
                         rvFeed.visibility = View.VISIBLE
                         tvNoInternet.visibility = View.GONE
+                        isLoading = false
+                        it.data?.let { data ->
+                            mAdapter.submitList(data.media)
+                        }
                     }
-                    isLoading = false
-                    it.data?.let { data ->
-                        mAdapter.submitList(data.media)
-                    }
-                }
 
-                Status.ERROR -> {
-                    with(mBinding) {
+                    Status.ERROR -> {
                         pbFeed.visibility = View.GONE
                         rvFeed.visibility = View.GONE
                         tvNoInternet.visibility = View.VISIBLE
+                        it.message?.let { message ->
+                            Log.e("FeedFragment", "An error occured: $message")
+                        }
                     }
-                    it.message?.let { message ->
-                        Log.e("FeedFragment", "An error occured: $message")
-                    }
-                }
 
-                Status.LOADING -> {
-                    with(mBinding) {
+                    Status.LOADING -> {
                         pbFeed.visibility = View.VISIBLE
                         rvFeed.visibility = View.GONE
                         tvNoInternet.visibility = View.GONE
+                        Log.d("FeedFragment", "Loading...")
                     }
-                    Log.d("FeedFragment", "Loading...")
                 }
             }
+
         }
     }
 

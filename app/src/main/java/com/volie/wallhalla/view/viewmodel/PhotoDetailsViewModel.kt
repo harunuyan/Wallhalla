@@ -17,13 +17,13 @@ class PhotoDetailsViewModel
 
     fun savePhoto(photo: Media) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insertCuratedResponse(photo)
+            repository.insertPhoto(photo)
         }
     }
 
     fun deletePhoto(photo: Media) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteCuratedResponse(photo)
+            repository.deletePhoto(photo)
 
         }
     }

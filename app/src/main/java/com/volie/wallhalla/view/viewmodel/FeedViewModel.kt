@@ -25,19 +25,19 @@ class FeedViewModel
     fun getWallpapers(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _wallpapers.postValue(Resource.loading(null))
-            _wallpapers.postValue(repository.getWallpapers(page))
+            _wallpapers.postValue(repository.getWallpapersFromRemote(page))
         }
     }
 
     fun savePhoto(photo: Media) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insertCuratedResponse(photo)
+            repository.insertPhoto(photo)
         }
     }
 
     fun deletePhoto(photo: Media) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteCuratedResponse(photo)
+            repository.deletePhoto(photo)
         }
     }
 }

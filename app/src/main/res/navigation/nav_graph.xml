@@ -64,11 +64,7 @@
     <fragment
         android:id="@+id/collectionPhotoFragment"
         android:name="com.volie.wallhalla.view.fragment.CollectionPhotoFragment"
-        android:label="CollectionFeedFragment">
-        <action
-            android:id="@+id/action_collectionPhotoFragment_to_photoDetailsFragment"
-            app:destination="@id/photoDetailsFragment" />
-    </fragment>
+        android:label="CollectionFeedFragment" />
     <fragment
         android:id="@+id/collectionFeedFragment"
         android:name="com.volie.wallhalla.view.fragment.CollectionFeedFragment"
