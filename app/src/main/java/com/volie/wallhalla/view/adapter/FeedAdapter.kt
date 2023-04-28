@@ -37,18 +37,22 @@ class FeedAdapter(
         fun bind(position: Int) {
             val item = currentList[position]
             with(binding) {
-                Glide.with(root.context)
-                    .load(item.src.large2x)
-                    .into(ivFeedItem)
-
                 if (item.isLiked) {
                     ivFeedItemFav.setImageResource(R.drawable.ic_favorited)
                 } else {
                     ivFeedItemFav.setImageResource(R.drawable.ic_fav)
                 }
-                if (item.type == "videos") {
+                if (item.type == "Video") {
+                    Glide.with(root.context)
+                        .load(item.image)
+                        .into(ivFeedItem)
+
                     ivPlayVideo.visibility = ViewGroup.VISIBLE
                 } else {
+                    Glide.with(root.context)
+                        .load(item.src?.large2x)
+                        .into(ivFeedItem)
+
                     ivPlayVideo.visibility = ViewGroup.GONE
                 }
             }
