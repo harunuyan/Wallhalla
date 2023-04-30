@@ -122,7 +122,7 @@ class PhotoDetailsFragment : Fragment() {
             val client = OkHttpClient()
 
             val request = Request.Builder()
-                .url(args.media.src.large2x.toString())
+                .url(args.media.src?.large2x.toString())
                 .build()
 
             val response = client.newCall(request).execute()
@@ -226,7 +226,7 @@ class PhotoDetailsFragment : Fragment() {
                 findNavController().navigate(action)
             }
             Glide.with(requireContext())
-                .load(args.media.src.large2x)
+                .load(args.media.src?.large2x)
                 .into(ivPhotoDetails)
         }
         if (args.media.isLiked) {
