@@ -8,13 +8,19 @@ import com.volie.wallhalla.data.model.Src
 class SrcTypeConverter {
 
     @TypeConverter
-    fun fromString(value: String): Src {
+    fun fromString(value: String?): Src? {
+        if (value == null) {
+            return null
+        }
         val type = object : TypeToken<Src>() {}.type
         return Gson().fromJson(value, type)
     }
 
     @TypeConverter
-    fun toString(src: Src): String {
+    fun toString(src: Src?): String {
+        if (src == null) {
+            return ""
+        }
         val type = object : TypeToken<Src>() {}.type
         return Gson().toJson(src, type)
     }
