@@ -15,6 +15,7 @@ import com.volie.wallhalla.databinding.FragmentSplashScreenBinding
 class SplashScreenFragment : Fragment() {
     private var _mBinding: FragmentSplashScreenBinding? = null
     private val mBinding get() = _mBinding!!
+    private val handler = Handler(Looper.getMainLooper())
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,16 +23,24 @@ class SplashScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _mBinding = FragmentSplashScreenBinding.inflate(inflater, container, false)
+        with(mBinding) {
+            with(handler) {
+                postDelayed({
+                    ivSplashScreen2.visibility = View.VISIBLE
+                }, 1000)
+
+                postDelayed({
+                    ivSplashScreenVegvisir.visibility = View.VISIBLE
+                }, 1500)
+
+                postDelayed({
+                    val action =
+                        SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment()
+                    findNavController().navigate(action)
+                }, 1500)
+            }
+        }
         return mBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            val action = SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment()
-            findNavController().navigate(action)
-        }, 1500)
     }
 
     override fun onDestroy() {
