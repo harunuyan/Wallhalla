@@ -26,11 +26,16 @@ class MainActivity : AppCompatActivity() {
         mBinding.bottomNavView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.photoDetailsFragment -> mBinding.bottomNavView.visibility = View.GONE
-                R.id.photographerFragment -> mBinding.bottomNavView.visibility = View.GONE
-                else -> mBinding.bottomNavView.visibility = View.VISIBLE
+            with(mBinding.bottomNavView) {
+                visibility = when (destination.id) {
+                    R.id.photoDetailsFragment -> View.GONE
+                    R.id.photographerFragment -> View.GONE
+                    R.id.web_view_collection_video -> View.GONE
+                    R.id.splashScreenFragment -> View.GONE
+                    else -> View.VISIBLE
+                }
             }
+
         }
     }
 
