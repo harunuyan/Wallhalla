@@ -85,6 +85,9 @@ class PhotoDetailsFragment : Fragment() {
             ivDownloadDetails.setOnClickListener {
                 downloadImage()
             }
+            ivInfoDetails.setOnClickListener {
+
+            }
             ivPhotoDetails.setOnTouchListener { _, event ->
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
@@ -219,6 +222,13 @@ class PhotoDetailsFragment : Fragment() {
             tvPhotographerName.text = args.media.photographer
             tvPhotographerUrl.text = args.media.photographerUrl
             tvPhotographerUrl.setOnClickListener {
+                val action =
+                    PhotoDetailsFragmentDirections.actionPhotoDetailsFragmentToPhotographerFragment(
+                        args.media.photographerUrl
+                    )
+                findNavController().navigate(action)
+            }
+            ivInfoDetails.setOnClickListener {
                 val action =
                     PhotoDetailsFragmentDirections.actionPhotoDetailsFragmentToPhotographerFragment(
                         args.media.photographerUrl
