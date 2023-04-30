@@ -1,6 +1,7 @@
 package com.volie.wallhalla.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -48,12 +49,21 @@ class FeedAdapter(
                         .into(ivFeedItem)
 
                     ivPlayVideo.visibility = ViewGroup.VISIBLE
+                    tvUserName.visibility = ViewGroup.VISIBLE
+                    if (item.user?.name.isNullOrEmpty()) {
+                        tvUserName.visibility = View.GONE
+                    } else {
+                        tvUserName.visibility = View.VISIBLE
+                        tvUserName.text = item.user?.name
+                    }
+
                 } else {
                     Glide.with(root.context)
                         .load(item.src?.large2x)
                         .into(ivFeedItem)
 
                     ivPlayVideo.visibility = ViewGroup.GONE
+                    tvUserName.visibility = ViewGroup.GONE
                 }
             }
         }

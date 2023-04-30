@@ -13,11 +13,11 @@ data class Media(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val url: String,
-    val photographer: String,
+    val photographer: String? = null,
     @SerializedName("photographer_url")
-    val photographerUrl: String,
+    val photographerUrl: String? = null,
     @SerializedName("avg_color")
-    val avgColor: String,
+    val avgColor: String? = "#FFFFFF",
     val src: Src? = null,
     var isLiked: Boolean,
     val image: String? = null,

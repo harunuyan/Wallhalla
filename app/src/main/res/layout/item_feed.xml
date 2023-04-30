@@ -32,9 +32,21 @@
             android:id="@+id/iv_play_video"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:visibility="gone"
             android:layout_gravity="center"
-            android:src="@drawable/ic_play_video" />
+            android:src="@drawable/ic_play_video"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_vertical"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/akaya_telivigala"
+            android:text="Xavier von Erlach"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
     </androidx.cardview.widget.CardView>
 

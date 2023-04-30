@@ -21,9 +21,16 @@ class FavoriteFragment : Fragment() {
     private val mAdapter: FeedAdapter by lazy {
         FeedAdapter(
             onItemClick = {
-                val action =
-                    FavoriteFragmentDirections.actionFavoriteFragmentToPhotoDetailsFragment(it)
-                findNavController().navigate(action)
+                if (it.type == "Video") {
+                    val action =
+                        FavoriteFragmentDirections.actionFavoriteFragmentToVideoPlayWebFragment(it)
+                    findNavController().navigate(action)
+                } else {
+                    val action =
+                        FavoriteFragmentDirections.actionFavoriteFragmentToPhotoDetailsFragment(it)
+                    findNavController().navigate(action)
+                }
+
             },
             onFavClick = { photo, _ ->
                 mViewModel.deletePhoto(photo)

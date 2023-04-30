@@ -26,15 +26,19 @@ class CollectionVideoFragment : Fragment() {
     private val mAdapter: FeedAdapter by lazy {
         FeedAdapter(
             onItemClick = {
-
+                val action =
+                    CollectionFeedFragmentDirections.actionCollectionFeedFragmentToVideoPlayWebFragment(
+                        it
+                    )
+                findNavController().navigate(action)
             },
             onFavClick = { video, position ->
-                if (video.isLiked) {
-                    mViewModel.deleteVideo(video)
-                    video.isLiked = false
-                } else {
+                if (!video.isLiked) {
                     mViewModel.saveVideo(video)
                     video.isLiked = true
+                } else {
+                    mViewModel.deleteVideo(video)
+                    video.isLiked = false
                 }
                 mAdapter.notifyItemChanged(position)
             }

@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_favoriteFragment_to_photoDetailsFragment"
             app:destination="@id/photoDetailsFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_videoPlayWebFragment"
+            app:destination="@id/videoPlayWebFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -75,9 +78,20 @@
         <argument
             android:name="info"
             app:argType="com.volie.wallhalla.data.model.Collection" />
+        <action
+            android:id="@+id/action_collectionFeedFragment_to_videoPlayWebFragment"
+            app:destination="@id/videoPlayWebFragment" />
     </fragment>
     <fragment
         android:id="@+id/collectionVideoFragment"
         android:name="com.volie.wallhalla.view.fragment.CollectionVideoFragment"
         android:label="CollectionVideoFragment" />
+    <fragment
+        android:id="@+id/videoPlayWebFragment"
+        android:name="com.volie.wallhalla.view.fragment.VideoPlayWebFragment"
+        android:label="VideoPlayWebFragment">
+        <argument
+            android:name="videoUrl"
+            app:argType="com.volie.wallhalla.data.model.Media" />
+    </fragment>
 </navigation>
