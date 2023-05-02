@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.FragmentPhotoDetailsBinding
 import com.volie.wallhalla.view.viewmodel.PhotoDetailsViewModel
@@ -71,6 +72,16 @@ class PhotoDetailsFragment : Fragment() {
             ivBackDetails.setOnClickListener {
                 findNavController().popBackStack()
             }
+
+            ivSetWallpaper.setOnClickListener {
+                val bottomSheetDialog =
+                    BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+                val bottomSheetView = LayoutInflater.from(requireContext())
+                    .inflate(R.layout.bottom_sheet_layout_select_screen, mBinding.root, false)
+                bottomSheetDialog.setContentView(bottomSheetView)
+                bottomSheetDialog.show()
+            }
+
             ivFavDetails.setOnClickListener {
                 if (!args.media.isLiked) {
                     mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
@@ -82,12 +93,11 @@ class PhotoDetailsFragment : Fragment() {
                     mViewModel.deletePhoto(args.media)
                 }
             }
+
             ivDownloadDetails.setOnClickListener {
                 downloadImage()
             }
-            ivInfoDetails.setOnClickListener {
 
-            }
             ivPhotoDetails.setOnTouchListener { _, event ->
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
