@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Wallhalla</string>
     <string name="internet_connection_not_available">Internet connection not available...</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="tell_me_what_you_think_about_this_app_suggest_ideas_bug_reports_and_improvements">Tell me what you think about this app, suggest ideas, bug reports and improvements</string>
+    <string name="app_version">App Version</string>
+    <string name="share_this_app_with_your_friends_and_family">Share this app with your friends and family</string>
+    <string name="recommend">Recommend</string>
+    <string name="about">About</string>
+    <string name="select_screen">Select Screen</string>
+    <string name="home_screen">Home Screen</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="both">Both</string>
+    <string name="select_theme">Select Theme</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="system_default">System Default</string>
 </resources>
