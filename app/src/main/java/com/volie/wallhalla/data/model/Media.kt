@@ -24,4 +24,9 @@ data class Media(
     val user: User? = null,
     @SerializedName("video_files")
     val videoFiles: List<VideoFile>? = null,
-) : Parcelable
+) : Parcelable {
+
+    val photographerUrlToDisplay: String
+        get() = photographerUrl?.trim()!!.removePrefix("https://www.pexels.com/")
+
+}

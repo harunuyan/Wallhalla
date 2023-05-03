@@ -79,7 +79,7 @@ class PhotoDetailsFragment : Fragment() {
                 val bottomSheetDialog =
                     BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
                 val bottomSheetView = LayoutInflater.from(requireContext())
-                    .inflate(R.layout.bottom_sheet_layout_select_screen, mBinding.root, false)
+                    .inflate(R.layout.bottom_sheet_layout_select_screen, root, false)
                 bottomSheetDialog.setContentView(bottomSheetView)
                 bottomSheetDialog.show()
 
@@ -275,7 +275,7 @@ class PhotoDetailsFragment : Fragment() {
     private fun getDetails() {
         with(mBinding) {
             tvPhotographerName.text = mArgs.media.photographer
-            tvPhotographerUrl.text = mArgs.media.photographerUrl
+            tvPhotographerUrl.text = mArgs.media.photographerUrlToDisplay
             tvPhotographerUrl.setOnClickListener {
                 val action =
                     PhotoDetailsFragmentDirections.actionPhotoDetailsFragmentToPhotographerFragment(
