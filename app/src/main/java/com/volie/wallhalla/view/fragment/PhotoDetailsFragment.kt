@@ -25,15 +25,17 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.volie.wallhalla.R
+import com.volie.wallhalla.data.model.WallpaperType
+import com.volie.wallhalla.databinding.BottomSheetLayoutSelectScreenBinding
 import com.volie.wallhalla.databinding.FragmentPhotoDetailsBinding
 import com.volie.wallhalla.view.viewmodel.PhotoDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -47,7 +49,8 @@ class PhotoDetailsFragment : Fragment() {
     private var _mBinding: FragmentPhotoDetailsBinding? = null
     private val mBinding get() = _mBinding!!
     private val mViewModel: PhotoDetailsViewModel by viewModels()
-    private lateinit var args: PhotoDetailsFragmentArgs
+    private val mArgs: PhotoDetailsFragmentArgs by navArgs()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,13 +65,12 @@ class PhotoDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.let {
-            args = PhotoDetailsFragmentArgs.fromBundle(it)
-        }
-
         onBackPressed()
 
         with(mBinding) {
+
+            val wallpaperUrl = mArgs.media.src?.large2x
+
             ivBackDetails.setOnClickListener {
                 findNavController().popBackStack()
             }
@@ -80,22 +82,66 @@ class PhotoDetailsFragment : Fragment() {
                     .inflate(R.layout.bottom_sheet_layout_select_screen, mBinding.root, false)
                 bottomSheetDialog.setContentView(bottomSheetView)
                 bottomSheetDialog.show()
+
+                val mBindingBottomSheet =
+                    BottomSheetLayoutSelectScreenBinding.bind(bottomSheetView)
+
+                with(mBindingBottomSheet) {
+
+                    flHomeScreen.setOnClickListener {
+                        mViewModel.setWallpaper(
+                            wallpaperUrl,
+                            WallpaperType.HOME_SCREEN,
+                            requireContext()
+                        )
+                        bottomSheetDialog.dismiss()
+                        Toast.makeText(
+                            requireContext(),
+                            "Wallpaper set successfully!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    flLockScreen.setOnClickListener {
+                        mViewModel.setWallpaper(
+                            wallpaperUrl,
+                            WallpaperType.LOCK_SCREEN,
+                            requireContext()
+                        )
+                        bottomSheetDialog.dismiss()
+                        Toast.makeText(
+                            requireContext(),
+                            "Wallpaper set successfully!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    flBoth.setOnClickListener {
+                        mViewModel.setWallpaper(wallpaperUrl, WallpaperType.BOTH, requireContext())
+                        bottomSheetDialog.dismiss()
+                        Toast.makeText(
+                            requireContext(),
+                            "Wallpaper set successfully!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
 
             ivFavDetails.setOnClickListener {
-                if (!args.media.isLiked) {
+                if (!mArgs.media.isLiked) {
                     mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
-                    args.media.isLiked = true
-                    mViewModel.savePhoto(args.media)
+                    mArgs.media.isLiked = true
+                    mViewModel.savePhoto(mArgs.media)
                 } else {
                     mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
-                    args.media.isLiked = false
-                    mViewModel.deletePhoto(args.media)
+                    mArgs.media.isLiked = false
+                    mViewModel.deletePhoto(mArgs.media)
                 }
             }
 
             ivDownloadDetails.setOnClickListener {
-                downloadImage()
+                downloadImage(wallpaperUrl!!)
             }
 
             ivPhotoDetails.setOnTouchListener { _, event ->
@@ -123,19 +169,19 @@ class PhotoDetailsFragment : Fragment() {
         getDetails()
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun downloadImage() {
+    private fun downloadImage(url: String) {
         if (!isNetworkAvailable()) {
             mBinding.ivDownloadDetails.setImageResource(R.drawable.ic_download_failed)
             Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show()
             return
         }
 
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
+
             val client = OkHttpClient()
 
             val request = Request.Builder()
-                .url(args.media.src?.large2x.toString())
+                .url(url)
                 .build()
 
             val response = client.newCall(request).execute()
@@ -145,7 +191,7 @@ class PhotoDetailsFragment : Fragment() {
 
             val displayName = "Title"
             val mimeType = "image/jpeg"
-            val contentResolver = context?.contentResolver
+            val contentResolver = requireContext().contentResolver
             val contentValues = ContentValues().apply {
                 put(MediaStore.Images.Media.DISPLAY_NAME, displayName)
                 put(MediaStore.Images.Media.MIME_TYPE, mimeType)
@@ -182,7 +228,6 @@ class PhotoDetailsFragment : Fragment() {
                     Toast.makeText(requireContext(), "Download failed.", Toast.LENGTH_SHORT).show()
                 }
             }
-
             inputStream?.close()
         }
     }
@@ -229,27 +274,27 @@ class PhotoDetailsFragment : Fragment() {
 
     private fun getDetails() {
         with(mBinding) {
-            tvPhotographerName.text = args.media.photographer
-            tvPhotographerUrl.text = args.media.photographerUrl
+            tvPhotographerName.text = mArgs.media.photographer
+            tvPhotographerUrl.text = mArgs.media.photographerUrl
             tvPhotographerUrl.setOnClickListener {
                 val action =
                     PhotoDetailsFragmentDirections.actionPhotoDetailsFragmentToPhotographerFragment(
-                        args.media.photographerUrl
+                        mArgs.media.photographerUrl
                     )
                 findNavController().navigate(action)
             }
             ivInfoDetails.setOnClickListener {
                 val action =
                     PhotoDetailsFragmentDirections.actionPhotoDetailsFragmentToPhotographerFragment(
-                        args.media.photographerUrl
+                        mArgs.media.photographerUrl
                     )
                 findNavController().navigate(action)
             }
             Glide.with(requireContext())
-                .load(args.media.src?.large2x)
+                .load(mArgs.media.src?.large2x)
                 .into(ivPhotoDetails)
         }
-        if (args.media.isLiked) {
+        if (mArgs.media.isLiked) {
             mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
         } else {
             mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
