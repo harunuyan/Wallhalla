@@ -3,6 +3,7 @@ package com.volie.wallhalla.data.service
 import com.volie.wallhalla.data.model.CollectionMediaResponse
 import com.volie.wallhalla.data.model.CollectionResponse
 import com.volie.wallhalla.data.model.CuratedResponse
+import com.volie.wallhalla.data.model.SearchResponse
 import com.volie.wallhalla.util.Constant.AUTHORIZATION
 import retrofit2.Response
 import retrofit2.http.GET
@@ -45,4 +46,16 @@ interface WallpaperService {
         @Header("Authorization")
         authorization: String = AUTHORIZATION
     ): Response<CollectionMediaResponse>
+
+    @GET("search")
+    suspend fun getSearchResult(
+        @Query("query")
+        query: String?,
+        @Query("page")
+        page: Int? = 1,
+        @Query("per_page")
+        perPage: Int? = 40,
+        @Header("Authorization")
+        authorization: String = AUTHORIZATION
+    ): Response<SearchResponse>
 }

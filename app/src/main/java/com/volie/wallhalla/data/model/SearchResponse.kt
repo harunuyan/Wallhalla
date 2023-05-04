@@ -17,5 +17,5 @@ data class SearchResponse(
     val perPage: Int,
     val photos: List<Media>,
     @SerializedName("next_page")
-    val nextPage: Int
+    val nextPage: String
 ) : Parcelable
