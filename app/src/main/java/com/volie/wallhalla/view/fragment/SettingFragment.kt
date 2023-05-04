@@ -1,5 +1,6 @@
 package com.volie.wallhalla.view.fragment
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.BottomSheetLayoutChooseThemeBinding
@@ -84,6 +86,42 @@ class SettingFragment : Fragment() {
                             dismiss()
                         }
                     }
+                }
+            }
+
+            llAppVersion.setOnLongClickListener {
+                val myGithubProfile = "https://github.com/harunuyan/Wallhalla"
+                val action =
+                    SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
+                        myGithubProfile
+                    )
+                findNavController().navigate(action)
+                return@setOnLongClickListener true
+            }
+
+            flPrivacyPolicy.setOnLongClickListener {
+                val myGithubProfile =
+                    "https://gist.github.com/harunuyan/d55c56eafcf97d4e4234d5590e1ee2aa"
+                val action =
+                    SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
+                        myGithubProfile
+                    )
+                findNavController().navigate(action)
+                return@setOnLongClickListener true
+            }
+
+            llSendFeedback.setOnClickListener {
+                val recipient = "harunuyan6@gmail.com"
+                val subject = "App Feedback 'Wallhalla'"
+                val message = "Hello,\nI want to give feedback about the app.\n\n"
+
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
+                    putExtra(Intent.EXTRA_SUBJECT, subject)
+                    putExtra(Intent.EXTRA_TEXT, message)
+                    val chooserIntent = Intent.createChooser(this, "Send Email")
+                    startActivity(chooserIntent)
                 }
             }
         }
