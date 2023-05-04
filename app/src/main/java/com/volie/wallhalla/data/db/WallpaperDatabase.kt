@@ -3,10 +3,10 @@ package com.volie.wallhalla.data.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.volie.wallhalla.data.MediaTypeConverter
-import com.volie.wallhalla.data.SrcTypeConverter
-import com.volie.wallhalla.data.UserTypeConverter
-import com.volie.wallhalla.data.VideoFileTypeConverter
+import com.volie.wallhalla.data.converter.MediaTypeConverter
+import com.volie.wallhalla.data.converter.SrcTypeConverter
+import com.volie.wallhalla.data.converter.UserTypeConverter
+import com.volie.wallhalla.data.converter.VideoFileTypeConverter
 import com.volie.wallhalla.data.model.CuratedResponse
 import com.volie.wallhalla.data.model.Media
 import com.volie.wallhalla.data.model.SearchResponse

@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.photoDetailsFragment -> View.GONE
                     R.id.photographerFragment -> View.GONE
                     R.id.web_view_collection_video -> View.GONE
+                    R.id.videoPlayWebFragment -> View.GONE
                     R.id.splashScreenFragment -> View.GONE
                     else -> View.VISIBLE
                 }

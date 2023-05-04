@@ -42,11 +42,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_vertical"
             android:layout_margin="16dp"
+            android:background="@drawable/info_background"
+            android:backgroundTint="#73BAB6B2"
             android:fontFamily="@font/akaya_telivigala"
+            android:padding="5dp"
             android:text="Xavier von Erlach"
-            android:visibility="gone"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
     </androidx.cardview.widget.CardView>
 
