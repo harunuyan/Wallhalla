@@ -29,6 +29,8 @@ class CollectionFeedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewPager()
+
+        mBinding.tvCollectionHeader.text = args.info.title
     }
 
     private fun setupViewPager() {
