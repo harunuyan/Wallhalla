@@ -4,6 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="@string/wallhalla"
+        android:textColor="@color/black"
+        android:textSize="33sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout_home"
         android:layout_width="match_parent"
@@ -11,7 +26,7 @@
         app:layout_constraintBottom_toTopOf="@id/view_pager_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tv_home" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_home"

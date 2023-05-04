@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_collection"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:padding="10dp"
+        android:text="@string/collections"
+        android:textColor="@color/black"
+        android:textSize="33sp"
+        android:textStyle="bold" />
 
     <ProgressBar
         android:id="@+id/pb_collection"
@@ -16,4 +21,10 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_collection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+
+</LinearLayout>

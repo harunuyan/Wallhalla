@@ -7,6 +7,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/annie_use_your_telescope"
+        android:padding="10dp"
+        android:text="@string/settings"
+        android:textColor="@color/black"
+        android:textSize="33sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="22dp"
         android:text="@string/options"
         android:textSize="16sp"
