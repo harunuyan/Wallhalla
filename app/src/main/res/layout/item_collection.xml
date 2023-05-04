@@ -21,7 +21,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:background="@drawable/info_background_circle"
-        android:backgroundTint="@color/dark_gray"
+        android:backgroundTint="#738C8986"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -10,6 +10,7 @@
         android:fontFamily="@font/annie_use_your_telescope"
         android:padding="10dp"
         android:text="@string/collections"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="33sp"
         android:textStyle="bold" />
