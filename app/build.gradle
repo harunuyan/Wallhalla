@@ -15,8 +15,8 @@ android {
         applicationId "com.volie.wallhalla"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -79,9 +79,6 @@ dependencies {
     // Hilt
     implementation "com.google.dagger:hilt-android:2.45"
     kapt "com.google.dagger:hilt-compiler:2.45"
-
-    // Exo Player
-    implementation 'com.google.android.exoplayer:exoplayer:2.18.6'
 }
 // Allow references to generated code
 kapt {
