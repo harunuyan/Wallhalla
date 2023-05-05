@@ -211,6 +211,11 @@ class PhotoDetailsFragment : Fragment() {
                             withContext(Dispatchers.Main) {
                                 mBinding.ivDownloadDetails.setImageResource(R.drawable.ic_download_succesfully)
                                 showDownloadNotification()
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Successfully downloaded",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         } else {
                             hasError = true
