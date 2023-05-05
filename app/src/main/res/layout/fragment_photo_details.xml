@@ -52,7 +52,7 @@
             android:id="@+id/iv_photographer_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/person"
+            android:src="@drawable/ic_person"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/MyShapeAppearanceOverlay" />
@@ -67,6 +67,7 @@
             android:text="Xavier von Erlach"
             android:fontFamily="@font/architects_daughter"
             android:textColor="@color/white"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_photographer_url"
             app:layout_constraintEnd_toStartOf="@id/iv_download_details"
