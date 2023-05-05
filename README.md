@@ -24,7 +24,7 @@
 - [Glide](https://github.com/bumptech/glide) -> Image loading for Android.
 - [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started) -> It is a set of components that facilitates the navigation structure of Android applications.
 - [Room Database](https://developer.android.com/training/data-storage/room) -> Room is a component used to create a local database in Android applications.
-- [Swipe Refresh Layout] (https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout) -> SwipeRefreshLayout allows the user to refresh a list or other content.
+- [Swipe Refresh Layout](https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout) -> SwipeRefreshLayout allows the user to refresh a list or other content.
 
 ## Android 📱 Application Screens 📸 Pixel 4
 
