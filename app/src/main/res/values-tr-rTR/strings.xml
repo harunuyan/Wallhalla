@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wallhalla</string>
+    <string name="internet_connection_not_available">İnternet bağlantısı mevcut değil...</string>
+    <string name="privacy_policy">Gizlilik Politikası</string>
+    <string name="send_feedback">Geribildirim Gönderin</string>
+    <string name="tell_me_what_you_think_about_this_app_suggest_ideas_bug_reports_and_improvements">Uygulama hakkında ne düşündüğünüzü söyleyin, fikir önerin, hata raporları ve iyileştirmeler yapın.</string>
+    <string name="app_version">Uygulama Sürümü</string>
+    <string name="share_this_app_with_your_friends_and_family">Bu uygulamayı arkadaşlarınız ve ailenizle paylaşın</string>
+    <string name="recommend">Tavsiye Edin</string>
+    <string name="about">Hakkında</string>
+    <string name="select_screen">Ekran Seçin</string>
+    <string name="home_screen">Ana Ekran</string>
+    <string name="lock_screen">Kilit Ekranı</string>
+    <string name="both">İkisine de</string>
+    <string name="select_theme">Tema Seçin</string>
+    <string name="light_theme">Açık Tema</string>
+    <string name="dark_theme">Koyu Tema</string>
+    <string name="system_default">Sistem Varsayılanı</string>
+    <string name="search">Ara...</string>
+    <string name="options">Seçenekler</string>
+    <string name="theme">Tema</string>
+    <string name="collections">Koleksiyonlar</string>
+    <string name="favourites">Favoriler</string>
+    <string name="settings">Ayarlar</string>
+    <string name="wallhalla">Wallhalla</string>
+    <string name="choose_your_theme">Temanızı Seçin</string>
+</resources>
