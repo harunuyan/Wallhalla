@@ -25,16 +25,18 @@
 ## Android 📱 Application Screens 📸 Pixel 4
 
 
-![Screenshot_1](https://user-images.githubusercontent.com/55163968/236434827-66a1168d-51d3-4a50-846a-3f3f7dcb7285.png)
-![Screenshot_2](https://user-images.githubusercontent.com/55163968/236434858-c3f6a1b3-9159-4580-9ba1-5129c6b328c8.png)
-![Screenshot_2_5](https://user-images.githubusercontent.com/55163968/236434872-be759d0d-89e1-440f-bdf0-135bed11db52.png)
-![Screenshot_2_8](https://user-images.githubusercontent.com/55163968/236434880-503aeb96-b817-4410-be70-375edefd5182.png)
-![Screenshot_3](https://user-images.githubusercontent.com/55163968/236434889-793a0d96-b9fe-47dc-a4a6-7803b721cfc9.png)
-![Screenshot_4](https://user-images.githubusercontent.com/55163968/236434904-5b2ae243-f442-43d4-981f-c5cd9ce92533.png)
-![Screenshot_5](https://user-images.githubusercontent.com/55163968/236434909-9848ac87-ae36-42ae-8db5-ba28a7ee329f.png)
-![Screenshot_6](https://user-images.githubusercontent.com/55163968/236434917-a7a26849-343b-461b-b697-50e3fc42a2bf.png)
-![Screenshot_7](https://user-images.githubusercontent.com/55163968/236434920-4eab0b0c-74e3-4af6-82f5-64b794d967e9.png)
-![Screenshot_8](https://user-images.githubusercontent.com/55163968/236434929-a83e917a-6ce2-4b9b-b529-09a877464f33.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/55163968/236434827-66a1168d-51d3-4a50-846a-3f3f7dcb7285.png" alt="Screenshot_1" width="200">
+  <img src="https://user-images.githubusercontent.com/55163968/236434858-c3f6a1b3-9159-4580-9ba1-5129c6b328c8.png" alt="Screenshot_2" width="200">
+  <img src="https://user-images.githubusercontent.com/55163968/236434872-be759d0d-89e1-440f-bdf0-135bed11db52.png" alt="Screenshot_2_5" width="200">
+  <img src="https://user-images.githubusercontent.com/55163968/236434880-503aeb96-b817-4410-be70-375edefd5182.png" alt="Screenshot_2_8" width="200">
+  <img src="https://user-images.githubusercontent.com/55163968/236434889-793a0d96-b9fe-47dc-a4a6-7803b721cfc9.png" alt="Screenshot_3" width="200">
+  <img src="https://user-images.githubusercontent.com/55163968/236434904-5b2ae243-f442-43d4-981f-c5cd9ce92533.png" alt="Screenshot_4" width="200">
+  <img src="https://user-images.githubusercontent.com/55163968/236434909-9848ac87-ae36-42ae-8db5-ba28a7ee329f.png" alt="Screenshot_5" width="200">
+  <img src="https://user-images.githubusercontent.com/55163968/236434917-a7a26849-343b-461b-b697-50e3fc42a2bf.png" alt="Screenshot_6" width="200">
+  <img src="https://user-images.githubusercontent.com/55163968/236434920-4eab0b0c-74e3-4af6-82f5-64b794d967e9.png" alt="Screenshot_7" width="200">
+  <img src="https://user-images.githubusercontent.com/55163968/236434929-a83e917a-6ce2-4b9b-b529-09a877464f33.png" alt="Screenshot_8" width="200">
+</p>
 
 ## License ℹ️
 ```
