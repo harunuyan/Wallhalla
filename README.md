@@ -1,6 +1,9 @@
 # Wallhalla - Wallpaper
 
-![Android Phones Wallpapers Free I Love Android Phones HD Wallpapers](https://user-images.githubusercontent.com/55163968/222984806-f55e8edc-bb7d-48d0-badf-a8917e48451d.jpeg)</br>
+
+
+![android-logo-minimal-5k-i7-1600x1200](https://user-images.githubusercontent.com/55163968/236510652-6be8fee4-d4ff-4286-b519-66a72f6f928a.png)</br>
+
 
 ## Architecture 🏛
 
@@ -21,6 +24,7 @@
 - [Glide](https://github.com/bumptech/glide) -> Image loading for Android.
 - [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started) -> It is a set of components that facilitates the navigation structure of Android applications.
 - [Room Database](https://developer.android.com/training/data-storage/room) -> Room is a component used to create a local database in Android applications.
+- [Swipe Refresh Layout] (https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout) -> SwipeRefreshLayout allows the user to refresh a list or other content.
 
 ## Android 📱 Application Screens 📸 Pixel 4
 
