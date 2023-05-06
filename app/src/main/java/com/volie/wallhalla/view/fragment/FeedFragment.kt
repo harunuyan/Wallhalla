@@ -147,7 +147,7 @@ class FeedFragment : Fragment() {
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (currentPage == pageStart) {
-                        findNavController().navigateUp()
+                        requireActivity().finish()
                     } else {
                         currentPage--
                         mViewModel.getWallpapers(currentPage)
