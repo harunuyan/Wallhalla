@@ -27,11 +27,11 @@ class FeedAdapter(
 
         init {
             binding.ivFeedItemFav.setOnClickListener {
-                onFavClick(currentList[bindingAdapterPosition], bindingAdapterPosition)
+                onFavClick(currentList[adapterPosition], adapterPosition)
             }
 
             binding.root.setOnClickListener {
-                onItemClick(currentList[bindingAdapterPosition])
+                onItemClick(currentList[adapterPosition])
             }
         }
 
