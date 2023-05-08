@@ -142,7 +142,7 @@ class SettingFragment : Fragment() {
                     val recipient = "harunuyan6@gmail.com"
                     val subject = getString(R.string.app_feedback)
                     val message =
-                        "${getString(R.string.hello)}\nI want to give feedback about the app.\n\n"
+                        "${getString(R.string.hello)}\n${getString(R.string.feedback_message)}\n\n"
 
                     Intent(Intent.ACTION_SEND).apply {
                         type = "text/plain"
