@@ -1,7 +1,7 @@
 package com.volie.wallhalla.view.fragment
 
 import android.content.Intent
-import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +13,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.BottomSheetLayoutChooseThemeBinding
 import com.volie.wallhalla.databinding.FragmentSettingBinding
+import com.volie.wallhalla.util.Constant.GITHUB_GIST_URL
+import com.volie.wallhalla.util.Constant.GITHUB_REPO_URL
+import com.volie.wallhalla.util.Constant.GOOGLE_PLAY_URL
 import com.volie.wallhalla.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class SettingFragment : Fragment() {
     private var _mBinding: FragmentSettingBinding? = null
     private val mBinding get() = _mBinding!!
-    private lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -89,39 +91,67 @@ class SettingFragment : Fragment() {
                 }
             }
 
-            llAppVersion.setOnLongClickListener {
-                val myGithubProfile = "https://github.com/harunuyan/Wallhalla"
-                val action =
-                    SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
-                        myGithubProfile
+            flRateApp.setOnClickListener {
+                try {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(GOOGLE_PLAY_URL)
+                        )
                     )
-                findNavController().navigate(action)
-                return@setOnLongClickListener true
-            }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
 
-            flPrivacyPolicy.setOnLongClickListener {
-                val myGithubProfile =
-                    "https://gist.github.com/harunuyan/d55c56eafcf97d4e4234d5590e1ee2aa"
-                val action =
-                    SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
-                        myGithubProfile
+                llRecommend.setOnClickListener {
+                    val url = GOOGLE_PLAY_URL
+                    val shareIntent = Intent(Intent.ACTION_SEND)
+                    shareIntent.type = "text/plain"
+                    shareIntent.putExtra(
+                        Intent.EXTRA_SUBJECT,
+                        getString(R.string.download_wallhalla)
                     )
-                findNavController().navigate(action)
-                return@setOnLongClickListener true
-            }
+                    shareIntent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        "${getString(R.string.download_wallhalla)}\n$url"
+                    )
+                    startActivity(Intent.createChooser(shareIntent, "Share via"))
+                }
 
-            llSendFeedback.setOnClickListener {
-                val recipient = "harunuyan6@gmail.com"
-                val subject = "App Feedback 'Wallhalla'"
-                val message = "Hello,\nI want to give feedback about the app.\n\n"
+                llAppVersion.setOnLongClickListener {
+                    val myGithubProfile = GITHUB_REPO_URL
+                    val action =
+                        SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
+                            myGithubProfile
+                        )
+                    findNavController().navigate(action)
+                    return@setOnLongClickListener true
+                }
 
-                val intent = Intent(Intent.ACTION_SEND).apply {
-                    type = "text/plain"
-                    putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
-                    putExtra(Intent.EXTRA_SUBJECT, subject)
-                    putExtra(Intent.EXTRA_TEXT, message)
-                    val chooserIntent = Intent.createChooser(this, "Send Email")
-                    startActivity(chooserIntent)
+                flPrivacyPolicy.setOnLongClickListener {
+                    val myGithubProfile = GITHUB_GIST_URL
+                    val action =
+                        SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
+                            myGithubProfile
+                        )
+                    findNavController().navigate(action)
+                    return@setOnLongClickListener true
+                }
+
+                llSendFeedback.setOnClickListener {
+                    val recipient = "harunuyan6@gmail.com"
+                    val subject = getString(R.string.app_feedback)
+                    val message =
+                        "${getString(R.string.hello)}\nI want to give feedback about the app.\n\n"
+
+                    Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
+                        putExtra(Intent.EXTRA_SUBJECT, subject)
+                        putExtra(Intent.EXTRA_TEXT, message)
+                        val chooserIntent = Intent.createChooser(this, "Send Email")
+                        startActivity(chooserIntent)
+                    }
                 }
             }
         }

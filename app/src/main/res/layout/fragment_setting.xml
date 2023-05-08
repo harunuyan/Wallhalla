@@ -84,6 +84,21 @@
 
         </LinearLayout>
 
+        <FrameLayout
+            android:id="@+id/fl_rate_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rate_this_app"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
         <LinearLayout
             android:id="@+id/ll_send_feedback"
             android:layout_width="match_parent"

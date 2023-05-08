@@ -24,4 +24,9 @@
     <string name="settings">Settings</string>
     <string name="wallhalla">Wallhalla</string>
     <string name="choose_your_theme">Choose your theme</string>
+    <string name="rate_this_app">Rate this app</string>
+    <string name="app_feedback">App Feedback Wallhalla</string>
+    <string name="hello">Hello</string>
+    <string name="feedback_message">I want to give feedback about the app.</string>
+    <string name="download_wallhalla">Download Wallhalla</string>
 </resources>
