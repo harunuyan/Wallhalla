@@ -147,7 +147,8 @@ class FeedFragment : Fragment() {
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (currentPage == pageStart) {
-                        requireActivity().finish()
+                        isEnabled = false
+                        requireActivity().onBackPressedDispatcher.onBackPressed()
                     } else {
                         currentPage--
                         mViewModel.getWallpapers(currentPage)

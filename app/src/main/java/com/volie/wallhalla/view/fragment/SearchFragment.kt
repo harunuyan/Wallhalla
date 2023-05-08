@@ -149,7 +149,8 @@ class SearchFragment : Fragment() {
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (currentPage == pageStart) {
-                        findNavController().navigateUp()
+                        isEnabled = false
+                        requireActivity().onBackPressedDispatcher.onBackPressed()
                     } else {
                         currentPage--
                         mViewModel.getSearchResult(query, currentPage)
