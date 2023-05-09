@@ -74,7 +74,6 @@ class FeedFragment : Fragment() {
                 when (it.status) {
                     Status.SUCCESS -> {
                         pbFeed.visibility = View.GONE
-                        rvFeed.visibility = View.VISIBLE
                         tvNoInternet.visibility = View.GONE
                         isLoading = false
                         it.data?.let { data ->
@@ -84,7 +83,6 @@ class FeedFragment : Fragment() {
 
                     Status.ERROR -> {
                         pbFeed.visibility = View.GONE
-                        rvFeed.visibility = View.GONE
                         tvNoInternet.visibility = View.VISIBLE
                         it.message?.let { message ->
                             Log.e("FeedFragment", "An error occured: $message")
@@ -93,7 +91,6 @@ class FeedFragment : Fragment() {
 
                     Status.LOADING -> {
                         pbFeed.visibility = View.VISIBLE
-                        rvFeed.visibility = View.GONE
                         tvNoInternet.visibility = View.GONE
                         Log.d("FeedFragment", "Loading...")
                     }
