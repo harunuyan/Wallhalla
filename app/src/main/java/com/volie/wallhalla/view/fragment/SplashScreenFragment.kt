@@ -26,7 +26,7 @@ class SplashScreenFragment : Fragment() {
     ): View {
         _mBinding = FragmentSplashScreenBinding.inflate(inflater, container, false)
         lifecycleScope.launch {
-            delay(1000)
+            delay(500)
 
             withContext(Dispatchers.Main) {
                 mBinding.ivSplashScreen2.visibility = View.VISIBLE
@@ -38,7 +38,7 @@ class SplashScreenFragment : Fragment() {
                 mBinding.ivSplashScreenVegvisir.visibility = View.VISIBLE
             }
 
-            delay(1000)
+            delay(500)
 
             withContext(Dispatchers.Main) {
                 val action =

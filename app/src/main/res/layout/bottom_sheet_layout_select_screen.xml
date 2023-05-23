@@ -25,6 +25,9 @@
 
     <FrameLayout
         android:id="@+id/fl_home_screen"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="24dp">
@@ -40,6 +43,9 @@
 
     <FrameLayout
         android:id="@+id/fl_lock_screen"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="24dp">
@@ -56,6 +62,9 @@
     <FrameLayout
         android:id="@+id/fl_both"
         android:layout_width="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
         android:layout_height="wrap_content"
         android:padding="24dp">
 
