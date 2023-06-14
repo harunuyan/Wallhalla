@@ -9,14 +9,14 @@ plugins {
 
 android {
     namespace 'com.volie.wallhalla'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.volie.wallhalla"
         minSdk 21
-        targetSdk 33
-        versionCode 4
-        versionName "1.0.4"
+        targetSdk 34
+        versionCode 5
+        versionName "1.0.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -51,8 +51,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Kotlin Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
-    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
 
     // Http logging interceptor
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
