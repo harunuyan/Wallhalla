@@ -143,27 +143,6 @@ class PhotoDetailsFragment : Fragment() {
             ivDownloadDetails.setOnClickListener {
                 downloadImage(wallpaperUrl!!)
             }
-
-            ivPhotoDetails.setOnTouchListener { _, event ->
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        Handler(Looper.myLooper()!!).postDelayed({
-                            clPhotoDetails.visibility = View.GONE
-                            ivBackDetails.visibility = View.GONE
-                            ivInfoDetails.visibility = View.GONE
-                        }, 200)
-                    }
-
-                    MotionEvent.ACTION_UP -> {
-                        Handler(Looper.myLooper()!!).postDelayed({
-                            clPhotoDetails.visibility = View.VISIBLE
-                            ivBackDetails.visibility = View.VISIBLE
-                            ivInfoDetails.visibility = View.VISIBLE
-                        }, 100)
-                    }
-                }
-                true
-            }
         }
 
         getDetails()
@@ -207,7 +186,7 @@ class PhotoDetailsFragment : Fragment() {
             uri?.let {
                 contentResolver.openOutputStream(it, "w").use { outputStream ->
                     try {
-                        if (image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)) {
+                        if (image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream!!)) {
                             withContext(Dispatchers.Main) {
                                 mBinding.ivDownloadDetails.setImageResource(R.drawable.ic_download_succesfully)
                                 showDownloadNotification()
