@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.fragment
+package com.volie.wallhalla.view.fragment.home
 
 import android.os.Bundle
 import android.os.Handler
@@ -16,7 +16,7 @@ import com.volie.wallhalla.databinding.FragmentFeedBinding
 import com.volie.wallhalla.util.PaginationScrollListener
 import com.volie.wallhalla.util.Status
 import com.volie.wallhalla.view.adapter.FeedAdapter
-import com.volie.wallhalla.view.viewmodel.FeedViewModel
+import com.volie.wallhalla.view.viewmodel.feed_vm.FeedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,6 +66,7 @@ class FeedFragment : Fragment() {
         setupPullToRefresh()
         observeLiveData()
         mViewModel.getWallpapers(currentPage)
+
     }
 
     private fun observeLiveData() {

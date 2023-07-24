@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.fragment
+package com.volie.wallhalla.view.fragment.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.volie.wallhalla.databinding.FragmentFavoriteBinding
 import com.volie.wallhalla.view.adapter.FeedAdapter
-import com.volie.wallhalla.view.viewmodel.FavoriteViewModel
+import com.volie.wallhalla.view.viewmodel.favorite_vm.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

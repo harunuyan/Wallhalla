@@ -1,11 +1,11 @@
-package com.volie.wallhalla.view.viewmodel
+package com.volie.wallhalla.view.viewmodel.search_vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.volie.wallhalla.data.model.CollectionMediaResponse
 import com.volie.wallhalla.data.model.Media
+import com.volie.wallhalla.data.model.SearchResponse
 import com.volie.wallhalla.data.repo.Repository
 import com.volie.wallhalla.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,18 +14,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CollectionPhotoViewModel
+class SearchViewModel
 @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _photos = MutableLiveData<Resource<CollectionMediaResponse>>()
-    val photos: LiveData<Resource<CollectionMediaResponse>> = _photos
+    private val _searchData = MutableLiveData<Resource<SearchResponse>>()
+    val searchData: LiveData<Resource<SearchResponse>> = _searchData
 
-    fun getCollectionPhotos(id: String, page: Int) {
+
+    fun getSearchResult(query: String, page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _photos.postValue(Resource.loading(null))
-            _photos.postValue(repository.getCollectionResults(id, page, "photos"))
+            _searchData.postValue(Resource.loading(null))
+            _searchData.postValue(repository.getSearchResult(query, page))
         }
     }
 

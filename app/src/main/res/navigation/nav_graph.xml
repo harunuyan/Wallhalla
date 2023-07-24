@@ -6,11 +6,11 @@
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.volie.wallhalla.view.fragment.FeedFragment"
+        android:name="com.volie.wallhalla.view.fragment.home.FeedFragment"
         android:label="Feed" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.volie.wallhalla.view.fragment.FavoriteFragment"
+        android:name="com.volie.wallhalla.view.fragment.favorite.FavoriteFragment"
         android:label="Favorite">
         <action
             android:id="@+id/action_favoriteFragment_to_photoDetailsFragment"
@@ -21,11 +21,11 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.volie.wallhalla.view.fragment.SearchFragment"
+        android:name="com.volie.wallhalla.view.fragment.search.SearchFragment"
         android:label="SearchFragment" />
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.volie.wallhalla.view.fragment.HomeFragment"
+        android:name="com.volie.wallhalla.view.fragment.home.HomeFragment"
         android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_photoDetailsFragment"
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/collectionFragment"
-        android:name="com.volie.wallhalla.view.fragment.CollectionFragment"
+        android:name="com.volie.wallhalla.view.fragment.collection.CollectionFragment"
         android:label="CollectionFragment">
         <action
             android:id="@+id/action_collectionFragment_to_collectionFeedFragment"
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.volie.wallhalla.view.fragment.SettingFragment"
+        android:name="com.volie.wallhalla.view.fragment.setting.SettingFragment"
         android:label="SettingFragment">
         <action
             android:id="@+id/action_settingFragment_to_photographerFragment"
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/photoDetailsFragment"
-        android:name="com.volie.wallhalla.view.fragment.PhotoDetailsFragment"
+        android:name="com.volie.wallhalla.view.fragment.detail.PhotoDetailsFragment"
         android:label="PhotoDetailsFragment">
         <action
             android:id="@+id/action_photoDetailsFragment_to_photographerFragment"
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/photographerFragment"
-        android:name="com.volie.wallhalla.view.fragment.PhotographerFragment"
+        android:name="com.volie.wallhalla.view.fragment.detail.PhotographerFragment"
         android:label="PhotographerFragment">
         <argument
             android:name="photographerUrl"
@@ -70,11 +70,11 @@
     </fragment>
     <fragment
         android:id="@+id/collectionPhotoFragment"
-        android:name="com.volie.wallhalla.view.fragment.CollectionPhotoFragment"
+        android:name="com.volie.wallhalla.view.fragment.collection.CollectionPhotoFragment"
         android:label="CollectionFeedFragment" />
     <fragment
         android:id="@+id/collectionFeedFragment"
-        android:name="com.volie.wallhalla.view.fragment.CollectionFeedFragment"
+        android:name="com.volie.wallhalla.view.fragment.collection.CollectionFeedFragment"
         android:label="CollectionFeedFragment">
         <action
             android:id="@+id/action_collectionFeedFragment_to_photoDetailsFragment"
@@ -88,11 +88,11 @@
     </fragment>
     <fragment
         android:id="@+id/collectionVideoFragment"
-        android:name="com.volie.wallhalla.view.fragment.CollectionVideoFragment"
+        android:name="com.volie.wallhalla.view.fragment.collection.CollectionVideoFragment"
         android:label="CollectionVideoFragment" />
     <fragment
         android:id="@+id/videoPlayWebFragment"
-        android:name="com.volie.wallhalla.view.fragment.VideoPlayWebFragment"
+        android:name="com.volie.wallhalla.view.fragment.detail.VideoPlayWebFragment"
         android:label="VideoPlayWebFragment">
         <argument
             android:name="videoUrl"
@@ -100,7 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.volie.wallhalla.view.fragment.SplashScreenFragment"
+        android:name="com.volie.wallhalla.view.fragment.splash_screen.SplashScreenFragment"
         android:label="SplashScreenFragment">
         <action
             android:id="@+id/action_splashScreenFragment_to_homeFragment"

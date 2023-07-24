@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.fragment
+package com.volie.wallhalla.view.fragment.collection
 
 import android.os.Bundle
 import android.os.Handler
@@ -16,7 +16,7 @@ import com.volie.wallhalla.databinding.FragmentCollectionPhotoBinding
 import com.volie.wallhalla.util.PaginationScrollListener
 import com.volie.wallhalla.util.Status
 import com.volie.wallhalla.view.adapter.CollectionFeedPhotoAdapter
-import com.volie.wallhalla.view.viewmodel.CollectionPhotoViewModel
+import com.volie.wallhalla.view.viewmodel.collection_vm.CollectionPhotoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.fragment
+package com.volie.wallhalla.view.fragment.search
 
 import android.os.Bundle
 import android.os.Handler
@@ -17,7 +17,8 @@ import com.volie.wallhalla.databinding.FragmentSearchBinding
 import com.volie.wallhalla.util.PaginationScrollListener
 import com.volie.wallhalla.util.Status
 import com.volie.wallhalla.view.adapter.FeedAdapter
-import com.volie.wallhalla.view.viewmodel.SearchViewModel
+import com.volie.wallhalla.view.fragment.home.HomeFragmentDirections
+import com.volie.wallhalla.view.viewmodel.search_vm.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

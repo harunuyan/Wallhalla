@@ -1,10 +1,10 @@
-package com.volie.wallhalla.view.viewmodel
+package com.volie.wallhalla.view.viewmodel.collection_vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.volie.wallhalla.data.model.CuratedResponse
+import com.volie.wallhalla.data.model.CollectionMediaResponse
 import com.volie.wallhalla.data.model.Media
 import com.volie.wallhalla.data.repo.Repository
 import com.volie.wallhalla.util.Resource
@@ -14,18 +14,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FeedViewModel
+class CollectionPhotoViewModel
 @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _wallpapers = MutableLiveData<Resource<CuratedResponse>>()
-    val wallpapers: LiveData<Resource<CuratedResponse>> = _wallpapers
+    private val _photos = MutableLiveData<Resource<CollectionMediaResponse>>()
+    val photos: LiveData<Resource<CollectionMediaResponse>> = _photos
 
-    fun getWallpapers(page: Int) {
+    fun getCollectionPhotos(id: String, page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _wallpapers.postValue(Resource.loading(null))
-            _wallpapers.postValue(repository.getWallpapersFromRemote(page))
+            _photos.postValue(Resource.loading(null))
+            _photos.postValue(repository.getCollectionResults(id, page, "photos"))
         }
     }
 

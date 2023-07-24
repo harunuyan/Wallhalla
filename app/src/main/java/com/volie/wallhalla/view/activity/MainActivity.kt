@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view
+package com.volie.wallhalla.view.activity
 
 import android.content.Context
 import android.os.Bundle

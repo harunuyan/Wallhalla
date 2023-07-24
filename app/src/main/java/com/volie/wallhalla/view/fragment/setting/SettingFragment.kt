@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.fragment
+package com.volie.wallhalla.view.fragment.setting
 
 import android.content.Intent
 import android.net.Uri
@@ -16,7 +16,7 @@ import com.volie.wallhalla.databinding.FragmentSettingBinding
 import com.volie.wallhalla.util.Constant.GITHUB_GIST_URL
 import com.volie.wallhalla.util.Constant.GITHUB_REPO_URL
 import com.volie.wallhalla.util.Constant.GOOGLE_PLAY_URL
-import com.volie.wallhalla.view.MainActivity
+import com.volie.wallhalla.view.activity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

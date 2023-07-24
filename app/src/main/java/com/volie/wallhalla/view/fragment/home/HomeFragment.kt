@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.fragment
+package com.volie.wallhalla.view.fragment.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.FragmentHomeBinding
 import com.volie.wallhalla.view.adapter.ViewPagerAdapter
+import com.volie.wallhalla.view.fragment.search.SearchFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

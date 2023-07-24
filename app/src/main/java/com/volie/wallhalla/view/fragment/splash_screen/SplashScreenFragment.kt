@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.fragment
+package com.volie.wallhalla.view.fragment.splash_screen
 
 import android.annotation.SuppressLint
 import android.os.Bundle

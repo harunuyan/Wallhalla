@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.fragment
+package com.volie.wallhalla.view.fragment.collection
 
 import android.os.Bundle
 import android.os.Handler
@@ -11,40 +11,28 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.volie.wallhalla.databinding.FragmentCollectionVideoBinding
+import com.volie.wallhalla.databinding.FragmentCollectionBinding
 import com.volie.wallhalla.util.PaginationScrollListener
 import com.volie.wallhalla.util.Status
-import com.volie.wallhalla.view.adapter.FeedAdapter
-import com.volie.wallhalla.view.viewmodel.CollectionVideoViewModel
+import com.volie.wallhalla.view.adapter.CollectionAdapter
+import com.volie.wallhalla.view.viewmodel.collection_vm.CollectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CollectionVideoFragment : Fragment() {
-    private var _mBinding: FragmentCollectionVideoBinding? = null
+class CollectionFragment : Fragment() {
+    private var _mBinding: FragmentCollectionBinding? = null
     private val mBinding get() = _mBinding!!
-    private val mViewModel: CollectionVideoViewModel by viewModels()
-    private val mAdapter: FeedAdapter by lazy {
-        FeedAdapter(
+    private val mViewModel: CollectionViewModel by viewModels()
+    private val mAdapter by lazy {
+        CollectionAdapter(
             onItemClick = {
                 val action =
-                    CollectionFeedFragmentDirections.actionCollectionFeedFragmentToVideoPlayWebFragment(
-                        it
-                    )
+                    CollectionFragmentDirections.actionCollectionFragmentToCollectionFeedFragment(it)
                 findNavController().navigate(action)
-            },
-            onFavClick = { video, position ->
-                if (!video.isLiked) {
-                    mViewModel.saveVideo(video)
-                    video.isLiked = true
-                } else {
-                    mViewModel.deleteVideo(video)
-                    video.isLiked = false
-                }
-                mAdapter.notifyItemChanged(position)
             }
         )
     }
-    private var collectionId = ""
+
     private val pageStart: Int = 1
     private var isLoading: Boolean = false
     private var isLastPage: Boolean = false
@@ -56,7 +44,7 @@ class CollectionVideoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _mBinding = FragmentCollectionVideoBinding.inflate(inflater, container, false)
+        _mBinding = FragmentCollectionBinding.inflate(inflater, container, false)
         return mBinding.root
     }
 
@@ -64,15 +52,42 @@ class CollectionVideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         onBackPressed()
-        collectionId = arguments?.getString("collectionId")!!
         setupRecyclerView()
         observeLiveData()
-        mViewModel.getVideosPictures(collectionId, currentPage)
+        mViewModel.getFeaturedCollections(currentPage)
+    }
+
+    private fun observeLiveData() {
+        mViewModel.collections.observe(viewLifecycleOwner) { resource ->
+            with(mBinding) {
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        pbCollection.visibility = View.GONE
+                        rvCollection.visibility = View.VISIBLE
+                        isLoading = false
+                        resource.data?.let {
+                            mAdapter.submitList(it.collections)
+                        }
+                    }
+
+                    Status.ERROR -> {
+                        pbCollection.visibility = View.VISIBLE
+                        rvCollection.visibility = View.GONE
+                    }
+
+                    Status.LOADING -> {
+                        pbCollection.visibility = View.VISIBLE
+                        rvCollection.visibility = View.GONE
+                    }
+                }
+            }
+
+        }
     }
 
     private fun setupRecyclerView() {
         val mLayoutManager = GridLayoutManager(requireContext(), 1)
-        with(mBinding.recyclerViewCollectionVideo) {
+        with(mBinding.rvCollection) {
             adapter = mAdapter
             layoutManager = mLayoutManager
             addOnScrollListener(object : PaginationScrollListener(mLayoutManager) {
@@ -81,7 +96,7 @@ class CollectionVideoFragment : Fragment() {
                     currentPage++
 
                     Handler(Looper.myLooper()!!).postDelayed({
-                        mViewModel.getVideosPictures(collectionId, currentPage)
+                        mViewModel.getFeaturedCollections(currentPage)
                     }, 1000)
                 }
 
@@ -101,34 +116,6 @@ class CollectionVideoFragment : Fragment() {
         }
     }
 
-    private fun observeLiveData() {
-        mViewModel.videosPictures.observe(viewLifecycleOwner) {
-            with(mBinding) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        recyclerViewCollectionVideo.visibility = View.VISIBLE
-                        pbCollectionVideo.visibility = View.GONE
-                        isLoading = false
-                        it.data?.let { data ->
-                            mAdapter.submitList(data.media)
-                        }
-                    }
-
-                    Status.ERROR -> {
-                        recyclerViewCollectionVideo.visibility = View.GONE
-                        pbCollectionVideo.visibility = View.VISIBLE
-                    }
-
-                    Status.LOADING -> {
-                        pbCollectionVideo.visibility = View.VISIBLE
-                        recyclerViewCollectionVideo.visibility = View.GONE
-                    }
-                }
-            }
-
-        }
-    }
-
     private fun onBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
@@ -138,7 +125,7 @@ class CollectionVideoFragment : Fragment() {
                         findNavController().navigateUp()
                     } else {
                         currentPage--
-                        mViewModel.getVideosPictures(collectionId, currentPage)
+                        mViewModel.getFeaturedCollections(currentPage)
                     }
                 }
             })
