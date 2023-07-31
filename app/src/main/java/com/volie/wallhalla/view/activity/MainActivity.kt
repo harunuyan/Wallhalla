@@ -7,6 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.tasks.Task
+import com.google.android.play.core.review.ReviewException
+import com.google.android.play.core.review.ReviewInfo
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.review.model.ReviewErrorCode
 import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,6 +21,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var _mBinding: ActivityMainBinding? = null
     private val mBinding get() = _mBinding!!
+    private lateinit var reviewManager: ReviewManager
+    private lateinit var reviewInfo: ReviewInfo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _mBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -23,6 +31,8 @@ class MainActivity : AppCompatActivity() {
 
         AppCompatDelegate.setDefaultNightMode(savedTheme)
         setContentView(mBinding.root)
+
+        requestReviewInfo()
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -43,6 +53,19 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+        }
+    }
+
+    private fun requestReviewInfo() {
+        reviewManager = ReviewManagerFactory.create(this)
+        val request: Task<ReviewInfo> = reviewManager.requestReviewFlow()
+
+        request.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                reviewInfo = task.result
+            } else {
+                @ReviewErrorCode val reviewErrorCode = (task.exception as ReviewException).errorCode
+            }
         }
     }
 
