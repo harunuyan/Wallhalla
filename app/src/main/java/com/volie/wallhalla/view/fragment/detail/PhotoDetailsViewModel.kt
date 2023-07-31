@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.viewmodel.detail_vm
+package com.volie.wallhalla.view.fragment.detail
 
 import android.app.WallpaperManager
 import android.content.Context

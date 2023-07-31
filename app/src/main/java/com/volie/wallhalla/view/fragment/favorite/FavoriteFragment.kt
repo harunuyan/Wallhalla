@@ -9,8 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.volie.wallhalla.databinding.FragmentFavoriteBinding
-import com.volie.wallhalla.view.adapter.FeedAdapter
-import com.volie.wallhalla.view.viewmodel.favorite_vm.FavoriteViewModel
+import com.volie.wallhalla.view.fragment.home.FeedAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

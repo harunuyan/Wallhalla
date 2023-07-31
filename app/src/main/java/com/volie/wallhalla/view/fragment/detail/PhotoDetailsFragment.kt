@@ -29,7 +29,6 @@ import com.volie.wallhalla.R
 import com.volie.wallhalla.data.model.WallpaperType
 import com.volie.wallhalla.databinding.BottomSheetLayoutSelectScreenBinding
 import com.volie.wallhalla.databinding.FragmentPhotoDetailsBinding
-import com.volie.wallhalla.view.viewmodel.detail_vm.PhotoDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

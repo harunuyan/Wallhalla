@@ -1,10 +1,10 @@
-package com.volie.wallhalla.view.viewmodel.collection_vm
+package com.volie.wallhalla.view.fragment.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.volie.wallhalla.data.model.CollectionMediaResponse
+import com.volie.wallhalla.data.model.CuratedResponse
 import com.volie.wallhalla.data.model.Media
 import com.volie.wallhalla.data.repo.Repository
 import com.volie.wallhalla.util.Resource
@@ -14,30 +14,30 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CollectionVideoViewModel
+class FeedViewModel
 @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _videosPictures = MutableLiveData<Resource<CollectionMediaResponse>>()
-    val videosPictures: LiveData<Resource<CollectionMediaResponse>> = _videosPictures
+    private val _wallpapers = MutableLiveData<Resource<CuratedResponse>>()
+    val wallpapers: LiveData<Resource<CuratedResponse>> = _wallpapers
 
-    fun getVideosPictures(id: String, page: Int) {
+    fun getWallpapers(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            _videosPictures.postValue(Resource.loading(null))
-            _videosPictures.postValue(repository.getCollectionResults(id, page, "videos"))
+            _wallpapers.postValue(Resource.loading(null))
+            _wallpapers.postValue(repository.getWallpapersFromRemote(page))
         }
     }
 
-    fun saveVideo(video: Media) {
+    fun savePhoto(photo: Media) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.insertPhoto(video)
+            repository.insertPhoto(photo)
         }
     }
 
-    fun deleteVideo(video: Media) {
+    fun deletePhoto(photo: Media) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deletePhoto(video)
+            repository.deletePhoto(photo)
         }
     }
 }

@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.volie.wallhalla.databinding.FragmentFeedBinding
 import com.volie.wallhalla.util.PaginationScrollListener
 import com.volie.wallhalla.util.Status
-import com.volie.wallhalla.view.adapter.FeedAdapter
-import com.volie.wallhalla.view.viewmodel.feed_vm.FeedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

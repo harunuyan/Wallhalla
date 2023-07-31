@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.viewmodel.search_vm
+package com.volie.wallhalla.view.fragment.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

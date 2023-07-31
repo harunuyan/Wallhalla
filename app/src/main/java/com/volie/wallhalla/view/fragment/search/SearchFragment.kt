@@ -16,9 +16,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.volie.wallhalla.databinding.FragmentSearchBinding
 import com.volie.wallhalla.util.PaginationScrollListener
 import com.volie.wallhalla.util.Status
-import com.volie.wallhalla.view.adapter.FeedAdapter
+import com.volie.wallhalla.view.fragment.home.FeedAdapter
 import com.volie.wallhalla.view.fragment.home.HomeFragmentDirections
-import com.volie.wallhalla.view.viewmodel.search_vm.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

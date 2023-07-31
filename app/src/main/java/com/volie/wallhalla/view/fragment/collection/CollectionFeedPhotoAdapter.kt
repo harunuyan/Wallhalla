@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.adapter
+package com.volie.wallhalla.view.fragment.collection
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -52,13 +52,13 @@ class CollectionFeedPhotoAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CollectionFeedPhotoAdapter.PhotoViewHolder {
+    ): PhotoViewHolder {
         val binding = ItemFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PhotoViewHolder(binding, onFavClick, onItemClick)
     }
 
     override fun onBindViewHolder(
-        holder: CollectionFeedPhotoAdapter.PhotoViewHolder,
+        holder: PhotoViewHolder,
         position: Int
     ) {
         holder.bind(position)

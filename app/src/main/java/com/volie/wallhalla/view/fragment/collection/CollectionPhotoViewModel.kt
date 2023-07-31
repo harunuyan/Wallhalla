@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.viewmodel.collection_vm
+package com.volie.wallhalla.view.fragment.collection
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

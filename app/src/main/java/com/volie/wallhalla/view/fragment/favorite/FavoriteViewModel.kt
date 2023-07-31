@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.viewmodel.favorite_vm
+package com.volie.wallhalla.view.fragment.favorite
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

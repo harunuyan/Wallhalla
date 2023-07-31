@@ -1,4 +1,4 @@
-package com.volie.wallhalla.view.adapter
+package com.volie.wallhalla.view.fragment.home
 
 import android.view.LayoutInflater
 import android.view.View

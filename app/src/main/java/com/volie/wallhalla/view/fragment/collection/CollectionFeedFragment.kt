@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.FragmentCollectionFeedBinding
-import com.volie.wallhalla.view.adapter.ViewPagerAdapter
+import com.volie.wallhalla.view.adapter.BaseViewPagerAdapter
 
 class CollectionFeedFragment : Fragment() {
     private var _mBinding: FragmentCollectionFeedBinding? = null
@@ -42,7 +42,7 @@ class CollectionFeedFragment : Fragment() {
                 arguments = bundleOf("collectionId" to args.info.id)
             }
         )
-        val adapter = ViewPagerAdapter(requireActivity(), pages)
+        val adapter = BaseViewPagerAdapter(requireActivity(), pages)
         mBinding.viewPagerFeed.adapter = adapter
         TabLayoutMediator(mBinding.tabLayoutFeed, mBinding.viewPagerFeed) { tab, position ->
             when (position) {

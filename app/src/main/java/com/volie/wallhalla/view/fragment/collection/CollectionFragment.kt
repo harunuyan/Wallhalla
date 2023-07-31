@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.volie.wallhalla.databinding.FragmentCollectionBinding
 import com.volie.wallhalla.util.PaginationScrollListener
 import com.volie.wallhalla.util.Status
-import com.volie.wallhalla.view.adapter.CollectionAdapter
-import com.volie.wallhalla.view.viewmodel.collection_vm.CollectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
