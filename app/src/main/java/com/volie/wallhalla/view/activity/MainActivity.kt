@@ -2,6 +2,7 @@ package com.volie.wallhalla.view.activity
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -65,6 +66,7 @@ class MainActivity : AppCompatActivity() {
                 reviewInfo = task.result
             } else {
                 @ReviewErrorCode val reviewErrorCode = (task.exception as ReviewException).errorCode
+                Log.e("Review not successfully", "$reviewErrorCode")
             }
         }
     }
