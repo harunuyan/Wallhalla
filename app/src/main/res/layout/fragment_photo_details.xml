@@ -24,8 +24,8 @@
 
     <ImageView
         android:id="@+id/iv_back_details"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_gravity="start"
         android:layout_margin="16dp"
         android:background="?attr/selectableItemBackground"
@@ -35,8 +35,8 @@
 
     <ImageView
         android:id="@+id/iv_info_details"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_gravity="end"
         android:layout_margin="16dp"
         android:background="?attr/selectableItemBackground"

@@ -20,6 +20,7 @@ data class Media(
     val avgColor: String? = "#FFFFFF",
     val src: Src? = null,
     var isLiked: Boolean,
+    var isDownloaded: Boolean,
     val image: String? = null,
     val user: User? = null,
     @SerializedName("video_files")

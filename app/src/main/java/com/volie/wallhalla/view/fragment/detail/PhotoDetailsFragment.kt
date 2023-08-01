@@ -137,7 +137,10 @@ class PhotoDetailsFragment : Fragment() {
             }
 
             ivDownloadDetails.setOnClickListener {
-                downloadImage(wallpaperUrl!!)
+                if (!mArgs.media.isDownloaded) {
+                    mArgs.media.isDownloaded = true
+                    downloadImage(wallpaperUrl!!)
+                }
             }
         }
 
@@ -146,6 +149,7 @@ class PhotoDetailsFragment : Fragment() {
 
     private fun downloadImage(url: String) {
         if (!isNetworkAvailable()) {
+            mArgs.media.isDownloaded = false
             mBinding.ivDownloadDetails.setImageResource(R.drawable.ic_download_failed)
             Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show()
             return
@@ -184,6 +188,7 @@ class PhotoDetailsFragment : Fragment() {
                     try {
                         if (image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream!!)) {
                             withContext(Dispatchers.Main) {
+                                mArgs.media.isDownloaded = true
                                 mBinding.ivDownloadDetails.setImageResource(R.drawable.ic_download_succesfully)
                                 showDownloadNotification()
                                 Toast.makeText(
@@ -278,6 +283,12 @@ class PhotoDetailsFragment : Fragment() {
             mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
         } else {
             mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
+        }
+
+        if (mArgs.media.isDownloaded) {
+            mBinding.ivDownloadDetails.setImageResource(R.drawable.ic_download_succesfully)
+        } else {
+            mBinding.ivDownloadDetails.setImageResource(R.drawable.ic_download)
         }
     }
 
