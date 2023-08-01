@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.volie.wallhalla.R
 import com.volie.wallhalla.databinding.FragmentSplashScreenBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -25,20 +27,15 @@ class SplashScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _mBinding = FragmentSplashScreenBinding.inflate(inflater, container, false)
+
+
         lifecycleScope.launch {
-            delay(500)
 
-            withContext(Dispatchers.Main) {
-                mBinding.ivSplashScreen2.visibility = View.VISIBLE
-            }
+            Glide.with(requireContext())
+                .load(R.drawable.head)
+                .into(mBinding.ivSplashScreenGif)
 
-            delay(500)
-
-            withContext(Dispatchers.Main) {
-                mBinding.ivSplashScreenVegvisir.visibility = View.VISIBLE
-            }
-
-            delay(500)
+            delay(1000)
 
             withContext(Dispatchers.Main) {
                 val action =

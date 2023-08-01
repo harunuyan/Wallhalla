@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/splash_bg"
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/iv_splash_screen_1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/splash_screen_1" />
+        android:id="@+id/iv_splash_screen_gif"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop" />
 
-    <ImageView
-        android:id="@+id/iv_splash_screen_2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:scaleType="centerCrop"
-        android:src="@drawable/splash_screen_2" />
-
-    <ImageView
-        android:id="@+id/iv_splash_screen_vegvisir"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="match_parent"
-        android:src="@drawable/splash_screen_vegvisir" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wallhalla"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/akaya_telivigala"
+        android:textColor="#FFFFFF" />
 
 </FrameLayout>

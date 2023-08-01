@@ -7,4 +7,5 @@
     <color name="red">#FFFF0000</color>
     <color name="blue">#FF0000FF</color>
     <color name="green">#FF00FF00</color>
+    <color name="splash_bg">#2C2C2C</color>
 </resources>
