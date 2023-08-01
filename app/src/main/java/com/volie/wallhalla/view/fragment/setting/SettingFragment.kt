@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -36,6 +37,36 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getThemePreference()
+
+        with(mBinding) {
+            llTheme.setOnClickListener {
+                showThemeBottomSheet()
+            }
+
+            flRateApp.setOnClickListener {
+                rateApp()
+            }
+            llRecommend.setOnClickListener {
+                shareApp()
+            }
+
+            llAppVersion.setOnClickListener {
+                showGithubRepository()
+            }
+
+            flPrivacyPolicy.setOnClickListener {
+                showPrivacyPolicy()
+            }
+
+            llSendFeedback.setOnClickListener {
+                openEmailComposer()
+            }
+
+        }
+    }
+
+    private fun getThemePreference() {
         val getSavedTheme = (requireActivity() as MainActivity).getSavedTheme()
 
         with(mBinding.tvTheme) {
@@ -53,108 +84,113 @@ class SettingFragment : Fragment() {
                 }
             }
         }
+    }
 
+    private fun showThemeBottomSheet() {
         with(mBinding) {
-            llTheme.setOnClickListener {
-                val bottomSheetDialog =
-                    BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
-                val bottomSheetView = LayoutInflater.from(requireContext())
-                    .inflate(R.layout.bottom_sheet_layout_choose_theme, root, false)
-                bottomSheetDialog.setContentView(bottomSheetView)
-                bottomSheetDialog.show()
+            val bottomSheetDialog =
+                BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+            val bottomSheetView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.bottom_sheet_layout_choose_theme, root, false)
+            bottomSheetDialog.setContentView(bottomSheetView)
+            bottomSheetDialog.show()
 
-                val mBindingBottomSheet = BottomSheetLayoutChooseThemeBinding.bind(bottomSheetView)
+            val mBindingBottomSheet = BottomSheetLayoutChooseThemeBinding.bind(bottomSheetView)
 
-                with(mBindingBottomSheet) {
-                    with(bottomSheetDialog) {
-                        flLightTheme.setOnClickListener {
-                            (requireActivity() as MainActivity).saveTheme(AppCompatDelegate.MODE_NIGHT_NO)
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                            tvTheme.text = getString(R.string.light_theme)
-                            dismiss()
-                        }
-
-                        flDarkTheme.setOnClickListener {
-                            (requireActivity() as MainActivity).saveTheme(AppCompatDelegate.MODE_NIGHT_YES)
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                            tvTheme.text = getString(R.string.dark_theme)
-                            dismiss()
-                        }
-
-                        flSystemDefaultTheme.setOnClickListener {
-                            (requireActivity() as MainActivity).saveTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                            tvTheme.text = getString(R.string.system_default)
-                            dismiss()
-                        }
+            with(mBindingBottomSheet) {
+                with(bottomSheetDialog) {
+                    flLightTheme.setOnClickListener {
+                        (requireActivity() as MainActivity).saveTheme(AppCompatDelegate.MODE_NIGHT_NO)
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        tvTheme.text = getString(R.string.light_theme)
+                        dismiss()
                     }
-                }
-            }
 
-            flRateApp.setOnClickListener {
-                try {
-                    startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(GOOGLE_PLAY_URL)
-                        )
-                    )
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                    flDarkTheme.setOnClickListener {
+                        (requireActivity() as MainActivity).saveTheme(AppCompatDelegate.MODE_NIGHT_YES)
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        tvTheme.text = getString(R.string.dark_theme)
+                        dismiss()
+                    }
 
-                llRecommend.setOnClickListener {
-                    val url = GOOGLE_PLAY_URL
-                    val shareIntent = Intent(Intent.ACTION_SEND)
-                    shareIntent.type = "text/plain"
-                    shareIntent.putExtra(
-                        Intent.EXTRA_SUBJECT,
-                        getString(R.string.download_wallhalla)
-                    )
-                    shareIntent.putExtra(
-                        Intent.EXTRA_TEXT,
-                        "${getString(R.string.download_wallhalla)}\n$url"
-                    )
-                    startActivity(Intent.createChooser(shareIntent, "Share via"))
-                }
-
-                llAppVersion.setOnLongClickListener {
-                    val myGithubProfile = GITHUB_REPO_URL
-                    val action =
-                        SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
-                            myGithubProfile
-                        )
-                    findNavController().navigate(action)
-                    return@setOnLongClickListener true
-                }
-
-                flPrivacyPolicy.setOnLongClickListener {
-                    val myGithubProfile = GITHUB_GIST_URL
-                    val action =
-                        SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
-                            myGithubProfile
-                        )
-                    findNavController().navigate(action)
-                    return@setOnLongClickListener true
-                }
-
-                llSendFeedback.setOnClickListener {
-                    val recipient = "harunuyan6@gmail.com"
-                    val subject = getString(R.string.app_feedback)
-                    val message =
-                        "${getString(R.string.hello)}\n${getString(R.string.feedback_message)}\n\n"
-
-                    Intent(Intent.ACTION_SEND).apply {
-                        type = "text/plain"
-                        putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
-                        putExtra(Intent.EXTRA_SUBJECT, subject)
-                        putExtra(Intent.EXTRA_TEXT, message)
-                        val chooserIntent = Intent.createChooser(this, "Send Email")
-                        startActivity(chooserIntent)
+                    flSystemDefaultTheme.setOnClickListener {
+                        (requireActivity() as MainActivity).saveTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                        tvTheme.text = getString(R.string.system_default)
+                        dismiss()
                     }
                 }
             }
         }
+    }
+
+    private fun openEmailComposer() {
+        val recipient = "harunuyan6@gmail.com"
+        val subject = getString(R.string.app_feedback)
+        val message =
+            "${getString(R.string.hello)}\n${getString(R.string.feedback_message)}\n\n"
+
+        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:$recipient")
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, message)
+        }
+
+        if (emailIntent.resolveActivity(requireContext().packageManager) != null) {
+            startActivity(emailIntent)
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "E-mail application not found!",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun showPrivacyPolicy() {
+        val myGithubProfile = GITHUB_GIST_URL
+        val action =
+            SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
+                myGithubProfile
+            )
+        findNavController().navigate(action)
+    }
+
+    private fun shareApp() {
+        val url = GOOGLE_PLAY_URL
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(
+            Intent.EXTRA_SUBJECT,
+            getString(R.string.download_wallhalla)
+        )
+        shareIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "${getString(R.string.download_wallhalla)}\n$url"
+        )
+        startActivity(Intent.createChooser(shareIntent, "Share via"))
+    }
+
+    private fun rateApp() {
+        try {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(GOOGLE_PLAY_URL)
+                )
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun showGithubRepository() {
+        val myGithubProfile = GITHUB_REPO_URL
+        val action =
+            SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
+                myGithubProfile
+            )
+        findNavController().navigate(action)
     }
 
     override fun onDestroy() {
