@@ -9,16 +9,6 @@ class VideoFileTypeConverter {
     private val gson = Gson()
 
     @TypeConverter
-    fun fromVideoFile(videoFile: VideoFile?): String? {
-        return gson.toJson(videoFile)
-    }
-
-    @TypeConverter
-    fun toVideoFile(videoFileJson: String?): VideoFile? {
-        return gson.fromJson(videoFileJson, VideoFile::class.java)
-    }
-
-    @TypeConverter
     fun fromVideoFileList(videoFiles: List<VideoFile>?): String? {
         return gson.toJson(videoFiles)
     }

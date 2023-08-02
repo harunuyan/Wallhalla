@@ -7,14 +7,17 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.AnimationDrawable
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.NotificationCompat
@@ -32,6 +35,8 @@ import com.volie.wallhalla.databinding.FragmentPhotoDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -47,6 +52,9 @@ class PhotoDetailsFragment : Fragment() {
     private val mViewModel: PhotoDetailsViewModel by viewModels()
     private val mArgs: PhotoDetailsFragmentArgs by navArgs()
 
+    private var lastClickTime = 0L
+    private var isAnimating = false
+    private var job: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,79 +69,34 @@ class PhotoDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         onBackPressed()
+
+        val wallpaperUrl = mArgs.media.src?.large2x
 
         with(mBinding) {
 
-            val wallpaperUrl = mArgs.media.src?.large2x
+            ivPhotoDetails.setOnTouchListener { _, event ->
+                if (event.action == MotionEvent.ACTION_DOWN) {
+                    val clickTime = System.currentTimeMillis()
+                    if (clickTime - lastClickTime < 300) {
+                        toggleLike()
+                    }
+                    lastClickTime = clickTime
+                }
+                true
+            }
 
             ivBackDetails.setOnClickListener {
                 findNavController().popBackStack()
             }
 
             ivSetWallpaper.setOnClickListener {
-                val bottomSheetDialog =
-                    BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
-                val bottomSheetView = LayoutInflater.from(requireContext())
-                    .inflate(R.layout.bottom_sheet_layout_select_screen, root, false)
-                bottomSheetDialog.setContentView(bottomSheetView)
-                bottomSheetDialog.show()
-
-                val mBindingBottomSheet =
-                    BottomSheetLayoutSelectScreenBinding.bind(bottomSheetView)
-
-                with(mBindingBottomSheet) {
-
-                    flHomeScreen.setOnClickListener {
-                        mViewModel.setWallpaper(
-                            wallpaperUrl,
-                            WallpaperType.HOME_SCREEN,
-                            requireContext()
-                        )
-                        bottomSheetDialog.dismiss()
-                        Toast.makeText(
-                            requireContext(),
-                            "Wallpaper set successfully!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-                    flLockScreen.setOnClickListener {
-                        mViewModel.setWallpaper(
-                            wallpaperUrl,
-                            WallpaperType.LOCK_SCREEN,
-                            requireContext()
-                        )
-                        bottomSheetDialog.dismiss()
-                        Toast.makeText(
-                            requireContext(),
-                            "Wallpaper set successfully!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
-                    flBoth.setOnClickListener {
-                        mViewModel.setWallpaper(wallpaperUrl, WallpaperType.BOTH, requireContext())
-                        bottomSheetDialog.dismiss()
-                        Toast.makeText(
-                            requireContext(),
-                            "Wallpaper set successfully!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
+                setWallpaper()
             }
 
             ivFavDetails.setOnClickListener {
-                if (!mArgs.media.isLiked) {
-                    mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
-                    mArgs.media.isLiked = true
-                    mViewModel.savePhoto(mArgs.media)
-                } else {
-                    mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
-                    mArgs.media.isLiked = false
-                    mViewModel.deletePhoto(mArgs.media)
-                }
+                toggleLike()
             }
 
             ivDownloadDetails.setOnClickListener {
@@ -145,6 +108,98 @@ class PhotoDetailsFragment : Fragment() {
         }
 
         getDetails()
+    }
+
+    private fun showHeartAnimation(imageViewHeart: ImageView) {
+        imageViewHeart.visibility = View.VISIBLE
+        if (mArgs.media.isLiked) {
+            imageViewHeart.setImageResource(R.drawable.ic_favorited)
+        } else {
+            imageViewHeart.setImageResource(R.drawable.ic_fav_filled)
+        }
+
+        val animationDrawable = imageViewHeart.drawable as? AnimationDrawable
+        animationDrawable?.start()
+        isAnimating = true
+
+        job = CoroutineScope(Dispatchers.Main).launch {
+            delay(500)
+            imageViewHeart.visibility = View.GONE
+            isAnimating = false
+        }
+    }
+
+    private fun toggleLike() {
+        if (!mArgs.media.isLiked) {
+            mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
+            mArgs.media.isLiked = true
+            mViewModel.savePhoto(mArgs.media)
+        } else {
+            mBinding.ivFavDetails.setImageResource(R.drawable.ic_fav)
+            mArgs.media.isLiked = false
+            mViewModel.deletePhoto(mArgs.media)
+        }
+        if (!isAnimating) {
+            showHeartAnimation(mBinding.ivDoubleClickHeart)
+        }
+    }
+
+    private fun setWallpaper() {
+
+        val wallpaperUrl = mArgs.media.src?.large2x
+
+        with(mBinding) {
+            val bottomSheetDialog =
+                BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+            val bottomSheetView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.bottom_sheet_layout_select_screen, root, false)
+            bottomSheetDialog.setContentView(bottomSheetView)
+            bottomSheetDialog.show()
+
+            val mBindingBottomSheet =
+                BottomSheetLayoutSelectScreenBinding.bind(bottomSheetView)
+
+            with(mBindingBottomSheet) {
+
+                flHomeScreen.setOnClickListener {
+                    mViewModel.setWallpaper(
+                        wallpaperUrl,
+                        WallpaperType.HOME_SCREEN,
+                        requireContext()
+                    )
+                    bottomSheetDialog.dismiss()
+                    Toast.makeText(
+                        requireContext(),
+                        "Wallpaper set successfully!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                flLockScreen.setOnClickListener {
+                    mViewModel.setWallpaper(
+                        wallpaperUrl,
+                        WallpaperType.LOCK_SCREEN,
+                        requireContext()
+                    )
+                    bottomSheetDialog.dismiss()
+                    Toast.makeText(
+                        requireContext(),
+                        "Wallpaper set successfully!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                flBoth.setOnClickListener {
+                    mViewModel.setWallpaper(wallpaperUrl, WallpaperType.BOTH, requireContext())
+                    bottomSheetDialog.dismiss()
+                    Toast.makeText(
+                        requireContext(),
+                        "Wallpaper set successfully!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun downloadImage(url: String) {
@@ -304,6 +359,7 @@ class PhotoDetailsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        job?.cancel()
         _mBinding = null
     }
 }

@@ -8,6 +8,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.volie.wallhalla.databinding.FragmentVideoPlayWebBinding
 
@@ -29,6 +30,10 @@ class VideoPlayWebFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         startWebView()
+
+        mBinding.ivBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     inner class CustomWebViewClient : WebViewClient() {
