@@ -29,12 +29,9 @@ class FeedFragment : Fragment() {
                 findNavController().navigate(action)
             },
             onFavClick = { photo, position ->
-                if (!photo.isLiked) {
-                    photo.isLiked = true
-
+                if (photo.isLiked) {
                     mViewModel.savePhoto(photo)
                 } else {
-                    photo.isLiked = false
                     mViewModel.deletePhoto(photo)
                 }
                 mAdapter.notifyItemChanged(position)

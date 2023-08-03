@@ -31,6 +31,16 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic_fav" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:visibility="gone"
+            app:lottie_autoPlay="false"
+            android:layout_gravity="center"
+            android:id="@+id/iv_double_click_heart"
+            app:lottie_speed="2.5"
+            app:lottie_fileName="animation_heart.json" />
+
         <ImageView
             android:id="@+id/iv_play_video"
             android:layout_width="120dp"

@@ -7,7 +7,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.AnimationDrawable
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
@@ -17,7 +16,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.NotificationCompat
@@ -26,6 +24,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.volie.wallhalla.R
@@ -88,7 +87,7 @@ class PhotoDetailsFragment : Fragment() {
             }
 
             ivBackDetails.setOnClickListener {
-                findNavController().popBackStack()
+                findNavController().navigateUp()
             }
 
             ivSetWallpaper.setOnClickListener {
@@ -110,21 +109,22 @@ class PhotoDetailsFragment : Fragment() {
         getDetails()
     }
 
-    private fun showHeartAnimation(imageViewHeart: ImageView) {
+    private fun showHeartAnimation(imageViewHeart: LottieAnimationView) {
         imageViewHeart.visibility = View.VISIBLE
+        imageViewHeart.playAnimation()
         if (mArgs.media.isLiked) {
-            imageViewHeart.setImageResource(R.drawable.ic_favorited)
-        } else {
-            imageViewHeart.setImageResource(R.drawable.ic_fav_filled)
-        }
+            imageViewHeart.setAnimation("animation_heart.json")
 
-        val animationDrawable = imageViewHeart.drawable as? AnimationDrawable
-        animationDrawable?.start()
+        } else {
+            imageViewHeart.setAnimation("animation_heart_break.json")
+        }
         isAnimating = true
+        imageViewHeart.playAnimation()
 
         job = CoroutineScope(Dispatchers.Main).launch {
-            delay(500)
+            delay(1200)
             imageViewHeart.visibility = View.GONE
+            imageViewHeart.cancelAnimation()
             isAnimating = false
         }
     }

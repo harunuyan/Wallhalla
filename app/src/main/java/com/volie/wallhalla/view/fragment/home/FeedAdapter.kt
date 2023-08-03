@@ -1,15 +1,24 @@
 package com.volie.wallhalla.view.fragment.home
 
+import android.annotation.SuppressLint
+import android.view.GestureDetector
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.volie.wallhalla.R
 import com.volie.wallhalla.data.model.Media
 import com.volie.wallhalla.databinding.ItemFeedBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class FeedAdapter(
     val onItemClick: (photo: Media) -> Unit,
@@ -18,25 +27,35 @@ class FeedAdapter(
     PhotoDiffCallBack()
 ) {
 
+    private var job: Job? = null
+
     inner class FeedViewHolder(
-        private val binding: ItemFeedBinding,
-        onFavClick: (photo: Media, position: Int) -> Unit,
-        onItemClick: (photo: Media) -> Unit
+        private val binding: ItemFeedBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.ivFeedItemFav.setOnClickListener {
-                onFavClick(currentList[adapterPosition], adapterPosition)
-            }
-
-            binding.root.setOnClickListener {
-                onItemClick(currentList[adapterPosition])
+                onDoubleTab(adapterPosition, binding.ivDoubleClickHeart)
             }
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         fun bind(position: Int) {
             val item = currentList[position]
+            val gestureDetector = GestureDetector(
+                binding.root.context,
+                object : GestureDetector.SimpleOnGestureListener() {
+                    override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                        onItemClick(item)
+                        return true
+                    }
+
+                    override fun onDoubleTap(e: MotionEvent): Boolean {
+                        onDoubleTab(position, binding.ivDoubleClickHeart)
+                        return true
+                    }
+                })
             with(binding) {
                 if (item.isLiked) {
                     ivFeedItemFav.setImageResource(R.drawable.ic_favorited)
@@ -65,13 +84,17 @@ class FeedAdapter(
                     ivPlayVideo.visibility = ViewGroup.GONE
                     tvUserName.visibility = ViewGroup.GONE
                 }
+                root.setOnTouchListener { _, event ->
+                    gestureDetector.onTouchEvent(event)
+                    true
+                }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val binding = ItemFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FeedViewHolder(binding, onFavClick, onItemClick)
+        return FeedViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
@@ -82,14 +105,33 @@ class FeedAdapter(
         return currentList.size
     }
 
-    class PhotoDiffCallBack : DiffUtil.ItemCallback<Media>() {
-        override fun areItemsTheSame(oldItem: Media, newItem: Media): Boolean {
-            return oldItem == newItem
+    private fun onDoubleTab(position: Int, imageView: LottieAnimationView) {
+        val item = currentList[position]
+        imageView.visibility = View.VISIBLE
+        if (!item.isLiked) {
+            imageView.setAnimation("animation_heart.json")
+            item.isLiked = true
+        } else {
+            imageView.setAnimation("animation_heart_break.json")
+            item.isLiked = false
         }
+        imageView.playAnimation()
 
-        override fun areContentsTheSame(oldItem: Media, newItem: Media): Boolean {
-            return oldItem == newItem
+        job = CoroutineScope(Dispatchers.Main).launch {
+            delay(800)
+            imageView.visibility = View.GONE
+            imageView.cancelAnimation()
+            onFavClick(item, position)
         }
+    }
+}
 
+class PhotoDiffCallBack : DiffUtil.ItemCallback<Media>() {
+    override fun areItemsTheSame(oldItem: Media, newItem: Media): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: Media, newItem: Media): Boolean {
+        return oldItem == newItem
     }
 }

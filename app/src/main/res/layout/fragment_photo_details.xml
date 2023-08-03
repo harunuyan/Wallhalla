@@ -146,11 +146,14 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/iv_double_click_heart"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_gravity="center"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:lottie_autoPlay="false"
+        app:lottie_speed="1.5"
+        app:lottie_fileName="animation_heart.json"
+        android:layout_gravity="center" />
 
 </FrameLayout>
