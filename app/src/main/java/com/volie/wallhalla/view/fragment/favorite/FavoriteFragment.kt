@@ -50,6 +50,11 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mBinding.ivEmptyStorage.setOnClickListener {
+            val action = FavoriteFragmentDirections.actionFavoriteFragmentToCollectionFragment()
+            findNavController().navigate(action)
+        }
+
         setupRecyclerView()
         mViewModel.getSavedPhotos()
         observeLiveData()
@@ -57,7 +62,17 @@ class FavoriteFragment : Fragment() {
 
     private fun observeLiveData() {
         mViewModel.savedPhotos.observe(viewLifecycleOwner) {
-            mAdapter.submitList(it)
+
+            if (it.isNullOrEmpty()) {
+                mBinding.rvFavorite.visibility = View.GONE
+                mBinding.ivEmptyStorage.visibility = View.VISIBLE
+                mBinding.ivEmptyStorage.playAnimation()
+            } else {
+                mBinding.rvFavorite.visibility = View.VISIBLE
+                mBinding.ivEmptyStorage.visibility = View.GONE
+                mBinding.ivEmptyStorage.cancelAnimation()
+                mAdapter.submitList(it)
+            }
         }
     }
 

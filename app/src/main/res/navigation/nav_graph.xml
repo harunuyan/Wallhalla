@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_favoriteFragment_to_videoPlayWebFragment"
             app:destination="@id/videoPlayWebFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_collectionFragment"
+            app:destination="@id/collectionFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
