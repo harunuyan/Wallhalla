@@ -30,4 +30,18 @@
     <string name="feedback_message">I want to give feedback about the app.</string>
     <string name="download_wallhalla">Download Wallhalla</string>
     <string name="view_on_github">View on Github -></string>
+    <string name="sign_in_to_wallhalla">Sign in to Wallhalla</string>
+    <string name="sign_in">Sign in</string>
+    <string name="email">Email address</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="log_in">Log in</string>
+    <string name="remember_password">Remember password</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="or">OR</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="skip_now">Skip now —></string>
+    <string name="full_name">Full name</string>
+    <string name="already_have_an_account">Already have an account?</string>
 </resources>
