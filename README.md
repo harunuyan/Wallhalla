@@ -25,6 +25,8 @@
 - [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started) -> It is a set of components that facilitates the navigation structure of Android applications.
 - [Room Database](https://developer.android.com/training/data-storage/room) -> Room is a component used to create a local database in Android applications.
 - [Swipe Refresh Layout](https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout) -> SwipeRefreshLayout allows the user to refresh a list or other content.
+- [Google Play Store App Review](https://developer.android.com/guide/playcore/in-app-review) -> The Google Play In-App Review API lets you prompt users to submit Play Store ratings and reviews without the inconvenience of leaving your app or game.
+- [Lottie Animation](https://lottiefiles.com/blog/working-with-lottie/getting-started-with-lottie-animations-in-android-app) -> Lottie is a mobile library for Android and iOS that parses Adobe After Effects animations exported as json with Bodymovin and renders them natively on mobile!
 
 ## Android 📱 Application Screens 📸 Pixel 4
 
