@@ -7,6 +7,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
@@ -26,6 +27,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.volie.wallhalla.R
 import com.volie.wallhalla.data.model.WallpaperType
@@ -33,7 +38,9 @@ import com.volie.wallhalla.databinding.BottomSheetLayoutSelectScreenBinding
 import com.volie.wallhalla.databinding.FragmentPhotoDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -64,10 +71,48 @@ class PhotoDetailsFragment : Fragment() {
         return mBinding.root
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        job = GlobalScope.launch(Dispatchers.Main) {
+
+            delay(300)
+
+            Glide.with(requireContext())
+                .load(mArgs.media.src?.large2x)
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<
+                                Drawable>?, isFirstResource: Boolean
+                    ): Boolean {
+                        with(mBinding) {
+                            progressBar.visibility = View.GONE
+                            clPhotoDetails.visibility = View.GONE
+                        }
+
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<
+                                Drawable>?, dataSource: DataSource?, isFirstResource: Boolean
+                    ): Boolean {
+                        with(mBinding) {
+                            progressBar.visibility = View.GONE
+                            clPhotoDetails.visibility = View.VISIBLE
+                        }
+
+                        return false
+                    }
+                })
+                .into(mBinding.ivPhotoDetails)
+        }
 
         onBackPressed()
 
@@ -314,6 +359,7 @@ class PhotoDetailsFragment : Fragment() {
 
     private fun getDetails() {
         with(mBinding) {
+
             tvPhotographerName.text = mArgs.media.photographer
             tvPhotographerUrl.text = mArgs.media.photographerUrlToDisplay
             tvPhotographerUrl.setOnClickListener {
@@ -330,9 +376,9 @@ class PhotoDetailsFragment : Fragment() {
                     )
                 findNavController().navigate(action)
             }
-            Glide.with(requireContext())
-                .load(mArgs.media.src?.large2x)
-                .into(ivPhotoDetails)
+//            Glide.with(requireContext())
+//                .load(mArgs.media.src?.large2x)
+//                .into(ivPhotoDetails)
         }
         if (mArgs.media.isLiked) {
             mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)

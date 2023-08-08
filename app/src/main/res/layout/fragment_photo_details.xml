@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
     <HorizontalScrollView
         android:id="@+id/hsv_photo_details"
         android:layout_width="match_parent"
@@ -52,7 +58,8 @@
         android:layout_margin="16dp"
         android:background="@drawable/info_background"
         android:backgroundTint="@color/gray"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:visibility="gone">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_photographer_profile"
@@ -150,10 +157,10 @@
         android:id="@+id/iv_double_click_heart"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_gravity="center"
         android:visibility="gone"
         app:lottie_autoPlay="false"
-        app:lottie_speed="1.5"
         app:lottie_fileName="animation_heart.json"
-        android:layout_gravity="center" />
+        app:lottie_speed="1.5" />
 
 </FrameLayout>
