@@ -1,4 +1,4 @@
-package com.volie.wallhalla.data.converter
+package com.volie.wallhalla.data.local.converter
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

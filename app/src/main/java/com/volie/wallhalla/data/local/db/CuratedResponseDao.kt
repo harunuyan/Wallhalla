@@ -1,4 +1,4 @@
-package com.volie.wallhalla.data.db
+package com.volie.wallhalla.data.local.db
 
 import androidx.room.Dao
 import androidx.room.Delete

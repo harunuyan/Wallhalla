@@ -92,6 +92,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.47"
     kapt "com.google.dagger:hilt-compiler:2.47"
 
+    // Data Store
+    implementation "androidx.datastore:datastore-preferences:1.1.0-alpha04"
+
     // Google Play Store App Review
     implementation 'com.google.android.play:review:2.0.1'
     implementation 'com.google.android.play:review-ktx:2.0.1'
@@ -105,6 +108,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.7.0'
     implementation 'com.google.firebase:firebase-storage-ktx:20.2.1'
+    implementation 'com.google.android.gms:play-services-auth:20.6.0'
 }
 // Allow references to generated code
 kapt {

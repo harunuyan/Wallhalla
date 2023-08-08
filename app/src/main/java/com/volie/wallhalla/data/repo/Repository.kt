@@ -1,7 +1,7 @@
 package com.volie.wallhalla.data.repo
 
 import android.util.Log
-import com.volie.wallhalla.data.db.CuratedResponseDao
+import com.volie.wallhalla.data.local.db.CuratedResponseDao
 import com.volie.wallhalla.data.model.CollectionMediaResponse
 import com.volie.wallhalla.data.model.CollectionResponse
 import com.volie.wallhalla.data.model.CuratedResponse

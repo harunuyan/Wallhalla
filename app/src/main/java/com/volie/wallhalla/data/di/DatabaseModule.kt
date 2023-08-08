@@ -2,8 +2,8 @@ package com.volie.wallhalla.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.volie.wallhalla.data.db.CuratedResponseDao
-import com.volie.wallhalla.data.db.WallpaperDatabase
+import com.volie.wallhalla.data.local.db.CuratedResponseDao
+import com.volie.wallhalla.data.local.db.WallpaperDatabase
 import com.volie.wallhalla.util.Constant.DATABASE_NAME
 import dagger.Module
 import dagger.Provides

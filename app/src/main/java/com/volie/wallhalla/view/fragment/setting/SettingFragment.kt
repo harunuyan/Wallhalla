@@ -7,23 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.volie.wallhalla.R
+import com.volie.wallhalla.data.model.Theme
 import com.volie.wallhalla.databinding.BottomSheetLayoutChooseThemeBinding
 import com.volie.wallhalla.databinding.FragmentSettingBinding
 import com.volie.wallhalla.util.Constant.GITHUB_GIST_URL
 import com.volie.wallhalla.util.Constant.GITHUB_REPO_URL
 import com.volie.wallhalla.util.Constant.GOOGLE_PLAY_URL
-import com.volie.wallhalla.view.activity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SettingFragment : Fragment() {
     private var _mBinding: FragmentSettingBinding? = null
     private val mBinding get() = _mBinding!!
+    private val mViewModel: SettingViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +40,7 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getThemePreference()
+        getThemeFlow()
 
         with(mBinding) {
             llTheme.setOnClickListener {
@@ -66,21 +69,15 @@ class SettingFragment : Fragment() {
         }
     }
 
-    private fun getThemePreference() {
-        val getSavedTheme = (requireActivity() as MainActivity).getSavedTheme()
-
-        with(mBinding.tvTheme) {
-            when (getSavedTheme) {
-                AppCompatDelegate.MODE_NIGHT_NO -> {
-                    text = getString(R.string.light_theme)
-                }
-
-                AppCompatDelegate.MODE_NIGHT_YES -> {
-                    text = getString(R.string.dark_theme)
-                }
-
-                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> {
-                    text = getString(R.string.system_default)
+    private fun getThemeFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            mViewModel.selectedTheme.collect { savedTheme ->
+                with(mBinding.tvTheme) {
+                    text = when (savedTheme) {
+                        Theme.DARK -> getString(R.string.dark_theme)
+                        Theme.LIGHT -> getString(R.string.light_theme)
+                        Theme.SYSTEM -> getString(R.string.system_default)
+                    }
                 }
             }
         }
@@ -100,22 +97,19 @@ class SettingFragment : Fragment() {
             with(mBindingBottomSheet) {
                 with(bottomSheetDialog) {
                     flLightTheme.setOnClickListener {
-                        (requireActivity() as MainActivity).saveTheme(AppCompatDelegate.MODE_NIGHT_NO)
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        mViewModel.saveTheme(Theme.LIGHT)
                         tvTheme.text = getString(R.string.light_theme)
                         dismiss()
                     }
 
                     flDarkTheme.setOnClickListener {
-                        (requireActivity() as MainActivity).saveTheme(AppCompatDelegate.MODE_NIGHT_YES)
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        mViewModel.saveTheme(Theme.DARK)
                         tvTheme.text = getString(R.string.dark_theme)
                         dismiss()
                     }
 
                     flSystemDefaultTheme.setOnClickListener {
-                        (requireActivity() as MainActivity).saveTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                        mViewModel.saveTheme(Theme.SYSTEM)
                         tvTheme.text = getString(R.string.system_default)
                         dismiss()
                     }
