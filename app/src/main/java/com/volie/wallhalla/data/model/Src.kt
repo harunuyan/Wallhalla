@@ -10,6 +10,12 @@ import kotlinx.parcelize.Parcelize
 data class Src(
     @PrimaryKey(autoGenerate = true)
     val srcId: Int? = null,
-    val landscape: String,
+    val original: String,
     val large2x: String,
+    val large: String,
+    val medium: String,
+    val small: String,
+    val portrait: String,
+    val landscape: String,
+    val tiny: String
 ) : Parcelable

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/info_background"
+    android:backgroundTint="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="6dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/info_background_circle"
+        android:backgroundTint="@color/gray" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/select_quality"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_original"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="24dp"
+        android:text="@string/original"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_large2x"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="24dp"
+        android:text="@string/large2x"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="24dp"
+        android:text="@string/large"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="24dp"
+        android:text="@string/medium"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="24dp"
+        android:text="@string/small"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_portrait"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="24dp"
+        android:text="@string/portrait"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_landscape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="24dp"
+        android:text="@string/landscape"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_tiny"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="24dp"
+        android:text="@string/tiny"
+        android:textSize="18sp" />
+
+</LinearLayout>

@@ -7,8 +7,10 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.volie.wallhalla.data.model.Quality
 import com.volie.wallhalla.data.model.Theme
 import com.volie.wallhalla.util.Constant.PREFERENCES_NAME
+import com.volie.wallhalla.util.Constant.PREFERENCES_QUALITY
 import com.volie.wallhalla.util.Constant.PREFERENCES_THEME
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +27,7 @@ class DataStoreRepository
 
     private object PreferenceKeys {
         val SAVED_THEME = stringPreferencesKey(PREFERENCES_THEME)
+        val SAVED_QUALITY = stringPreferencesKey(PREFERENCES_QUALITY)
     }
 
     private val dataStore: DataStore<Preferences> = context.dataStore
@@ -40,8 +43,24 @@ class DataStoreRepository
         try {
             Theme.valueOf(themeName)
         } catch (ex: IllegalArgumentException) {
-            Log.e("Failed --- ---> ", "$ex")
+            Log.e("Failed theme flow", "$ex")
             Theme.SYSTEM
+        }
+    }
+
+    suspend fun saveQualityOption(quality: Quality) {
+        dataStore.edit { preferences ->
+            preferences[PreferenceKeys.SAVED_QUALITY] = quality.name
+        }
+    }
+
+    val selectedQualityFlow: Flow<Quality> = dataStore.data.map { preferences ->
+        val qualityName = preferences[PreferenceKeys.SAVED_QUALITY] ?: Quality.ORIGINAL.name
+        try {
+            Quality.valueOf(qualityName)
+        } catch (ex: IllegalArgumentException) {
+            Log.e("Failed quality flow", "$ex")
+            Quality.ORIGINAL
         }
     }
 }

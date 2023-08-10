@@ -13,7 +13,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.volie.wallhalla.R
+import com.volie.wallhalla.data.model.Quality
 import com.volie.wallhalla.data.model.Theme
+import com.volie.wallhalla.databinding.BottomSheetLayoutChooseQualityBinding
 import com.volie.wallhalla.databinding.BottomSheetLayoutChooseThemeBinding
 import com.volie.wallhalla.databinding.FragmentSettingBinding
 import com.volie.wallhalla.util.Constant.GITHUB_GIST_URL
@@ -41,13 +43,18 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         getThemeFlow()
+        getQualityFlow()
 
         with(mBinding) {
             llTheme.setOnClickListener {
                 showThemeBottomSheet()
             }
 
-            flRateApp.setOnClickListener {
+            llQuality.setOnClickListener {
+                showQualityBottomSheet()
+            }
+
+            tvRateApp.setOnClickListener {
                 rateApp()
             }
             llRecommend.setOnClickListener {
@@ -58,7 +65,7 @@ class SettingFragment : Fragment() {
                 showGithubRepository()
             }
 
-            flPrivacyPolicy.setOnClickListener {
+            tvPrivacyPolicy.setOnClickListener {
                 showPrivacyPolicy()
             }
 
@@ -66,6 +73,64 @@ class SettingFragment : Fragment() {
                 openEmailComposer()
             }
 
+        }
+    }
+
+    private fun showQualityBottomSheet() {
+        with(mBinding) {
+            val bottomSheetDialog =
+                BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+            val bottomSheetView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.bottom_sheet_layout_choose_quality, root, false)
+            bottomSheetDialog.setContentView(bottomSheetView)
+            bottomSheetDialog.show()
+
+            val mBindingBottomSheet = BottomSheetLayoutChooseQualityBinding.bind(bottomSheetView)
+
+            with(mBindingBottomSheet) {
+                with(bottomSheetDialog) {
+                    tvOriginal.setOnClickListener {
+                        mViewModel.saveQuality(Quality.ORIGINAL)
+                        tvQuality.text = getString(R.string.original)
+                        dismiss()
+                    }
+                    tvLarge2x.setOnClickListener {
+                        mViewModel.saveQuality(Quality.LARGE_2X)
+                        tvQuality.text = getString(R.string.large2x)
+                        dismiss()
+                    }
+                    tvLarge.setOnClickListener {
+                        mViewModel.saveQuality(Quality.LARGE)
+                        tvQuality.text = getString(R.string.large)
+                        dismiss()
+                    }
+                    tvMedium.setOnClickListener {
+                        mViewModel.saveQuality(Quality.MEDIUM)
+                        tvQuality.text = getString(R.string.medium)
+                        dismiss()
+                    }
+                    tvSmall.setOnClickListener {
+                        mViewModel.saveQuality(Quality.SMALL)
+                        tvQuality.text = getString(R.string.small)
+                        dismiss()
+                    }
+                    tvPortrait.setOnClickListener {
+                        mViewModel.saveQuality(Quality.PORTRAIT)
+                        tvQuality.text = getString(R.string.portrait)
+                        dismiss()
+                    }
+                    tvLandscape.setOnClickListener {
+                        mViewModel.saveQuality(Quality.LANDSCAPE)
+                        tvQuality.text = getString(R.string.landscape)
+                        dismiss()
+                    }
+                    tvTiny.setOnClickListener {
+                        mViewModel.saveQuality(Quality.TINY)
+                        tvQuality.text = getString(R.string.tiny)
+                        dismiss()
+                    }
+                }
+            }
         }
     }
 
@@ -77,6 +142,25 @@ class SettingFragment : Fragment() {
                         Theme.DARK -> getString(R.string.dark_theme)
                         Theme.LIGHT -> getString(R.string.light_theme)
                         Theme.SYSTEM -> getString(R.string.system_default)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getQualityFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            mViewModel.selectedQuality.collect { savedQuality ->
+                with(mBinding.tvQuality) {
+                    text = when (savedQuality) {
+                        Quality.ORIGINAL -> getString(R.string.original)
+                        Quality.LARGE_2X -> getString(R.string.large2x)
+                        Quality.LARGE -> getString(R.string.large)
+                        Quality.MEDIUM -> getString(R.string.medium)
+                        Quality.SMALL -> getString(R.string.small)
+                        Quality.PORTRAIT -> getString(R.string.portrait)
+                        Quality.LANDSCAPE -> getString(R.string.landscape)
+                        Quality.TINY -> getString(R.string.tiny)
                     }
                 }
             }
@@ -96,19 +180,19 @@ class SettingFragment : Fragment() {
 
             with(mBindingBottomSheet) {
                 with(bottomSheetDialog) {
-                    flLightTheme.setOnClickListener {
+                    tvLightTheme.setOnClickListener {
                         mViewModel.saveTheme(Theme.LIGHT)
                         tvTheme.text = getString(R.string.light_theme)
                         dismiss()
                     }
 
-                    flDarkTheme.setOnClickListener {
+                    tvDarkTheme.setOnClickListener {
                         mViewModel.saveTheme(Theme.DARK)
                         tvTheme.text = getString(R.string.dark_theme)
                         dismiss()
                     }
 
-                    flSystemDefaultTheme.setOnClickListener {
+                    tvSystemDefaultTheme.setOnClickListener {
                         mViewModel.saveTheme(Theme.SYSTEM)
                         tvTheme.text = getString(R.string.system_default)
                         dismiss()

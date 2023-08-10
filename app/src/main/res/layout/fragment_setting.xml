@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="22dp"
+            android:textColor="#616161"
             android:text="@string/options"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -46,7 +47,34 @@
 
             <TextView
                 android:id="@+id/tv_theme"
+                android:textColor="#616161"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_quality"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/default_photo_quality"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_quality"
+                android:layout_width="match_parent"
+                android:textColor="#616161"
                 android:layout_height="wrap_content"
                 android:textSize="15sp" />
 
@@ -61,6 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="22dp"
+            android:textColor="#616161"
             android:text="@string/about"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -85,28 +114,23 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#616161"
                 android:text="@string/share_this_app_with_your_friends_and_family"
                 android:textSize="15sp" />
 
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/fl_rate_app"
+        <TextView
+            android:id="@+id/tv_rate_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:text="@string/rate_this_app"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:padding="24dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/rate_this_app"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </FrameLayout>
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/ll_send_feedback"
@@ -127,29 +151,24 @@
 
             <TextView
                 android:layout_width="match_parent"
+                android:textColor="#616161"
                 android:layout_height="wrap_content"
                 android:text="@string/tell_me_what_you_think_about_this_app_suggest_ideas_bug_reports_and_improvements"
                 android:textSize="15sp" />
 
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/fl_privacy_policy"
+        <TextView
+            android:id="@+id/tv_privacy_policy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/privacy_policy"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
-            android:padding="24dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/privacy_policy"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </FrameLayout>
+            android:padding="24dp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/ll_app_version"
@@ -171,6 +190,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#616161"
                 android:text="1.0.7"
                 android:textSize="15sp" />
 

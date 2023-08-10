@@ -23,6 +23,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.airbnb.lottie.LottieAnimationView
@@ -33,14 +34,13 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.volie.wallhalla.R
+import com.volie.wallhalla.data.model.Quality
 import com.volie.wallhalla.data.model.WallpaperType
 import com.volie.wallhalla.databinding.BottomSheetLayoutSelectScreenBinding
 import com.volie.wallhalla.databinding.FragmentPhotoDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -60,6 +60,7 @@ class PhotoDetailsFragment : Fragment() {
 
     private var lastClickTime = 0L
     private var isAnimating = false
+    private var selectedQuality = Quality.ORIGINAL
     private var job: Job? = null
 
     override fun onCreateView(
@@ -71,48 +72,9 @@ class PhotoDetailsFragment : Fragment() {
         return mBinding.root
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        job = GlobalScope.launch(Dispatchers.Main) {
-
-            delay(300)
-
-            Glide.with(requireContext())
-                .load(mArgs.media.src?.large2x)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<
-                                Drawable>?, isFirstResource: Boolean
-                    ): Boolean {
-                        with(mBinding) {
-                            progressBar.visibility = View.GONE
-                            clPhotoDetails.visibility = View.GONE
-                        }
-
-                        return false
-                    }
-
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<
-                                Drawable>?, dataSource: DataSource?, isFirstResource: Boolean
-                    ): Boolean {
-                        with(mBinding) {
-                            progressBar.visibility = View.GONE
-                            clPhotoDetails.visibility = View.VISIBLE
-                        }
-
-                        return false
-                    }
-                })
-                .into(mBinding.ivPhotoDetails)
-        }
 
         onBackPressed()
 
@@ -152,6 +114,7 @@ class PhotoDetailsFragment : Fragment() {
         }
 
         getDetails()
+        getQualityOptions()
     }
 
     private fun showHeartAnimation(imageViewHeart: LottieAnimationView) {
@@ -206,7 +169,7 @@ class PhotoDetailsFragment : Fragment() {
 
             with(mBindingBottomSheet) {
 
-                flHomeScreen.setOnClickListener {
+                tvHomeScreen.setOnClickListener {
                     mViewModel.setWallpaper(
                         wallpaperUrl,
                         WallpaperType.HOME_SCREEN,
@@ -220,7 +183,7 @@ class PhotoDetailsFragment : Fragment() {
                     ).show()
                 }
 
-                flLockScreen.setOnClickListener {
+                tvLockScreen.setOnClickListener {
                     mViewModel.setWallpaper(
                         wallpaperUrl,
                         WallpaperType.LOCK_SCREEN,
@@ -234,7 +197,7 @@ class PhotoDetailsFragment : Fragment() {
                     ).show()
                 }
 
-                flBoth.setOnClickListener {
+                tvBoth.setOnClickListener {
                     mViewModel.setWallpaper(wallpaperUrl, WallpaperType.BOTH, requireContext())
                     bottomSheetDialog.dismiss()
                     Toast.makeText(
@@ -376,10 +339,8 @@ class PhotoDetailsFragment : Fragment() {
                     )
                 findNavController().navigate(action)
             }
-//            Glide.with(requireContext())
-//                .load(mArgs.media.src?.large2x)
-//                .into(ivPhotoDetails)
         }
+
         if (mArgs.media.isLiked) {
             mBinding.ivFavDetails.setImageResource(R.drawable.ic_favorited)
         } else {
@@ -390,6 +351,63 @@ class PhotoDetailsFragment : Fragment() {
             mBinding.ivDownloadDetails.setImageResource(R.drawable.ic_download_succesfully)
         } else {
             mBinding.ivDownloadDetails.setImageResource(R.drawable.ic_download)
+        }
+    }
+
+    private fun mapQualityToUrl(quality: Quality): String {
+        val url = mArgs.media.src!!
+        return when (quality) {
+            Quality.ORIGINAL -> url.original
+            Quality.LARGE_2X -> url.large2x
+            Quality.LARGE -> url.large
+            Quality.MEDIUM -> url.medium
+            Quality.SMALL -> url.small
+            Quality.TINY -> url.tiny
+            Quality.LANDSCAPE -> url.landscape
+            Quality.PORTRAIT -> url.portrait
+        }
+    }
+
+    private fun getQualityOptions() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            mViewModel.selectedQuality.collect {
+                mapQualityToUrl(it).let { url ->
+                    Glide.with(requireContext())
+                        .load(url)
+                        .listener(object : RequestListener<Drawable> {
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: Target<
+                                        Drawable>?, isFirstResource: Boolean
+                            ): Boolean {
+                                with(mBinding) {
+                                    progressBar.visibility = View.GONE
+                                    clPhotoDetails.visibility = View.GONE
+                                }
+
+                                return false
+                            }
+
+                            override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: Target<
+                                        Drawable>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                with(mBinding) {
+                                    progressBar.visibility = View.GONE
+                                    clPhotoDetails.visibility = View.VISIBLE
+                                }
+
+                                return false
+                            }
+                        })
+                        .into(mBinding.ivPhotoDetails)
+                }
+            }
         }
     }
 

@@ -22,55 +22,37 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <FrameLayout
-        android:id="@+id/fl_light_theme"
+    <TextView
+        android:id="@+id/tv_light_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:padding="24dp">
+        android:padding="24dp"
+        android:text="@string/light_theme"
+        android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/light_theme"
-            android:textSize="18sp" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/fl_dark_theme"
+    <TextView
+        android:id="@+id/tv_dark_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:padding="24dp">
+        android:padding="24dp"
+        android:text="@string/dark_theme"
+        android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dark_theme"
-            android:textSize="18sp" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/fl_system_default_theme"
+    <TextView
+        android:id="@+id/tv_system_default_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:padding="24dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/system_default"
-            android:textSize="18sp" />
-
-    </FrameLayout>
+        android:padding="24dp"
+        android:text="@string/system_default"
+        android:textSize="18sp" />
 
 </LinearLayout>

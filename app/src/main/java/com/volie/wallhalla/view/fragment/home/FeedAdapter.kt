@@ -83,7 +83,7 @@ class FeedAdapter(
 
                 } else {
                     Glide.with(root.context)
-                        .load(item.src?.large2x)
+                        .load(item.src?.medium)
                         .listener(object : RequestListener<Drawable> {
                             override fun onLoadFailed(
                                 e: GlideException?,

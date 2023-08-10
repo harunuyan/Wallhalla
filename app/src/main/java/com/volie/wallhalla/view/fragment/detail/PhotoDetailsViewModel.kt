@@ -6,6 +6,7 @@ import android.os.Build
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.volie.wallhalla.data.local.data_store.DataStoreRepository
 import com.volie.wallhalla.data.model.Media
 import com.volie.wallhalla.data.model.WallpaperType
 import com.volie.wallhalla.data.repo.Repository
@@ -19,9 +20,12 @@ import javax.inject.Inject
 @HiltViewModel
 class PhotoDetailsViewModel
 @Inject constructor(
-    private val repository: Repository
+    private val repository: Repository,
+    private val dataStoreRepository: DataStoreRepository
 
 ) : ViewModel() {
+
+    val selectedQuality = dataStoreRepository.selectedQualityFlow
 
     fun savePhoto(photo: Media) {
         viewModelScope.launch(Dispatchers.IO) {
