@@ -54,4 +54,6 @@
     <string name="portrait">Portrait</string>
     <string name="landscape">Landscape</string>
     <string name="tiny">Tiny</string>
+    <string name="minimum_6_characters">Minimum 6 characters</string>
+    <string name="guest">Guest</string>
 </resources>

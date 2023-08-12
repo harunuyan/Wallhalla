@@ -55,6 +55,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.web_view_collection_video -> View.GONE
                     R.id.videoPlayWebFragment -> View.GONE
                     R.id.splashScreenFragment -> View.GONE
+                    R.id.loginFragment -> View.GONE
+                    R.id.signupFragment -> View.GONE
                     else -> View.VISIBLE
                 }
             }

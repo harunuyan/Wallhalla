@@ -22,7 +22,7 @@ data class Media(
     var isLiked: Boolean,
     var isDownloaded: Boolean,
     val image: String? = null,
-    val user: User? = null,
+    val user: Photographer? = null,
     @SerializedName("video_files")
     val videoFiles: List<VideoFile>? = null,
 ) : Parcelable {

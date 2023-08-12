@@ -1,14 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_user_profile"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="24dp"
+            android:src="@drawable/ic_person"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_settings_title"
+            app:shapeAppearanceOverlay="@style/RoundedImageViewOverlay"
+            app:strokeColor="@color/red"
+            app:strokeWidth="1dp" />
 
         <TextView
+            android:id="@+id/tv_display_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:text="@string/guest"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/iv_logout"
+            app:layout_constraintStart_toEndOf="@id/iv_user_profile"
+            app:layout_constraintBottom_toTopOf="@id/tv_email"
+            app:layout_constraintTop_toTopOf="@id/iv_user_profile" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:visibility="gone"
+            android:text="harunuyan6@gmail.com"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user_profile"
+            app:layout_constraintEnd_toStartOf="@id/iv_logout"
+            app:layout_constraintStart_toEndOf="@id/iv_user_profile" />
+
+        <ImageView
+            android:id="@+id/iv_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_logout"
+            app:layout_constraintBottom_toBottomOf="@id/tv_display_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_display_name" />
+
+        <View
+            android:id="@+id/view_divider_title"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/dark_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_user_profile" />
+
+        <TextView
+            android:id="@+id/tv_settings_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/annie_use_your_telescope"
@@ -17,16 +76,22 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="33sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_options"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="22dp"
-            android:textColor="#616161"
             android:text="@string/options"
+            android:textColor="#616161"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_divider_title" />
 
         <LinearLayout
             android:id="@+id/ll_theme"
@@ -36,7 +101,9 @@
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_options">
 
             <TextView
                 android:layout_width="match_parent"
@@ -47,9 +114,9 @@
 
             <TextView
                 android:id="@+id/tv_theme"
-                android:textColor="#616161"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#616161"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -62,7 +129,9 @@
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_theme">
 
             <TextView
                 android:layout_width="match_parent"
@@ -74,25 +143,32 @@
             <TextView
                 android:id="@+id/tv_quality"
                 android:layout_width="match_parent"
-                android:textColor="#616161"
                 android:layout_height="wrap_content"
+                android:textColor="#616161"
                 android:textSize="15sp" />
 
         </LinearLayout>
 
         <View
-            android:layout_width="match_parent"
+            android:id="@+id/view_divider"
+            android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/dark_gray" />
+            android:background="@color/dark_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_quality" />
 
         <TextView
+            android:id="@+id/tv_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="22dp"
-            android:textColor="#616161"
             android:text="@string/about"
+            android:textColor="#616161"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_divider" />
 
         <LinearLayout
             android:id="@+id/ll_recommend"
@@ -102,7 +178,9 @@
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_about">
 
             <TextView
                 android:layout_width="match_parent"
@@ -114,8 +192,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#616161"
                 android:text="@string/share_this_app_with_your_friends_and_family"
+                android:textColor="#616161"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -124,13 +202,15 @@
             android:id="@+id/tv_rate_app"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="24dp"
-            android:text="@string/rate_this_app"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
+            android:padding="24dp"
+            android:text="@string/rate_this_app"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_recommend" />
 
         <LinearLayout
             android:id="@+id/ll_send_feedback"
@@ -140,7 +220,9 @@
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_rate_app">
 
             <TextView
                 android:layout_width="match_parent"
@@ -151,9 +233,9 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:textColor="#616161"
                 android:layout_height="wrap_content"
                 android:text="@string/tell_me_what_you_think_about_this_app_suggest_ideas_bug_reports_and_improvements"
+                android:textColor="#616161"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -162,13 +244,15 @@
             android:id="@+id/tv_privacy_policy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/privacy_policy"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:padding="24dp"
+            android:text="@string/privacy_policy"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_send_feedback" />
 
         <LinearLayout
             android:id="@+id/ll_app_version"
@@ -178,7 +262,9 @@
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_privacy_policy">
 
             <TextView
                 android:layout_width="match_parent"
@@ -190,8 +276,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#616161"
                 android:text="1.0.7"
+                android:textColor="#616161"
                 android:textSize="15sp" />
 
             <TextView
@@ -203,6 +289,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

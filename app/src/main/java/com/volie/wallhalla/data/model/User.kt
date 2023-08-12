@@ -1,10 +1,16 @@
 package com.volie.wallhalla.data.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class User(
-    val name: String,
-    val url: String
-) : Parcelable
+    val uid: String? = null,
+    val fullName: String? = null,
+    val username: String? = null,
+    val email: String? = null,
+    val profilePic: String? = null,
+) {
+    fun toMap() = mapOf(
+        "userId" to uid,
+        "name" to fullName,
+        "username" to username,
+        "imageUrl" to profilePic,
+    )
+}

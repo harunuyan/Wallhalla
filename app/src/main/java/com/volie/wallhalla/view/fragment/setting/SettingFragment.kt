@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.volie.wallhalla.R
+import com.volie.wallhalla.auth.AuthViewModel
 import com.volie.wallhalla.data.model.Quality
 import com.volie.wallhalla.data.model.Theme
 import com.volie.wallhalla.databinding.BottomSheetLayoutChooseQualityBinding
@@ -29,11 +31,10 @@ class SettingFragment : Fragment() {
     private var _mBinding: FragmentSettingBinding? = null
     private val mBinding get() = _mBinding!!
     private val mViewModel: SettingViewModel by viewModels()
+    private val mAuthViewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _mBinding = FragmentSettingBinding.inflate(inflater, container, false)
         return mBinding.root
@@ -42,10 +43,16 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showUserInfo()
         getThemeFlow()
         getQualityFlow()
 
         with(mBinding) {
+            ivLogout.setOnClickListener {
+                mAuthViewModel.onLogOut()
+                val action = SettingFragmentDirections.actionSettingFragmentToLoginFragment()
+                findNavController().navigate(action)
+            }
             llTheme.setOnClickListener {
                 showThemeBottomSheet()
             }
@@ -72,7 +79,22 @@ class SettingFragment : Fragment() {
             llSendFeedback.setOnClickListener {
                 openEmailComposer()
             }
+        }
+    }
 
+    private fun showUserInfo() {
+        mAuthViewModel.user.observe(viewLifecycleOwner) {
+            if (it != null) {
+                mBinding.tvDisplayName.text = it.fullName
+                mBinding.tvEmail.visibility = View.VISIBLE
+                mBinding.tvEmail.text = it.email
+            } else {
+                mBinding.tvEmail.visibility = View.GONE
+                mBinding.ivLogout.setImageResource(R.drawable.ic_login)
+            }
+            if (it?.profilePic != null) {
+                Glide.with(requireContext()).load(it.profilePic).into(mBinding.ivUserProfile)
+            }
         }
     }
 
@@ -205,8 +227,7 @@ class SettingFragment : Fragment() {
     private fun openEmailComposer() {
         val recipient = "harunuyan6@gmail.com"
         val subject = getString(R.string.app_feedback)
-        val message =
-            "${getString(R.string.hello)}\n${getString(R.string.feedback_message)}\n\n"
+        val message = "${getString(R.string.hello)}\n${getString(R.string.feedback_message)}\n\n"
 
         val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:$recipient")
@@ -218,19 +239,16 @@ class SettingFragment : Fragment() {
             startActivity(emailIntent)
         } else {
             Toast.makeText(
-                requireContext(),
-                "E-mail application not found!",
-                Toast.LENGTH_SHORT
+                requireContext(), "E-mail application not found!", Toast.LENGTH_SHORT
             ).show()
         }
     }
 
     private fun showPrivacyPolicy() {
         val myGithubProfile = GITHUB_GIST_URL
-        val action =
-            SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
-                myGithubProfile
-            )
+        val action = SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
+            myGithubProfile
+        )
         findNavController().navigate(action)
     }
 
@@ -239,12 +257,10 @@ class SettingFragment : Fragment() {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
         shareIntent.putExtra(
-            Intent.EXTRA_SUBJECT,
-            getString(R.string.download_wallhalla)
+            Intent.EXTRA_SUBJECT, getString(R.string.download_wallhalla)
         )
         shareIntent.putExtra(
-            Intent.EXTRA_TEXT,
-            "${getString(R.string.download_wallhalla)}\n$url"
+            Intent.EXTRA_TEXT, "${getString(R.string.download_wallhalla)}\n$url"
         )
         startActivity(Intent.createChooser(shareIntent, "Share via"))
     }
@@ -253,8 +269,7 @@ class SettingFragment : Fragment() {
         try {
             startActivity(
                 Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(GOOGLE_PLAY_URL)
+                    Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_URL)
                 )
             )
         } catch (e: Exception) {
@@ -264,10 +279,9 @@ class SettingFragment : Fragment() {
 
     private fun showGithubRepository() {
         val myGithubProfile = GITHUB_REPO_URL
-        val action =
-            SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
-                myGithubProfile
-            )
+        val action = SettingFragmentDirections.actionSettingFragmentToPhotographerFragment(
+            myGithubProfile
+        )
         findNavController().navigate(action)
     }
 
